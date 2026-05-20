@@ -1,0 +1,4 @@
+conteudos_gerados.json
+*.html
+__pycache__/
+*.pyc

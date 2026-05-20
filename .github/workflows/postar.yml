@@ -1,0 +1,50 @@
+name: Postar Instagram Leilao
+
+on:
+  schedule:
+    # Horarios UTC (Brasil = UTC-3)
+    - cron: '0 12 * * *'   # 09h BRT - MENTALIDADE
+    - cron: '0 16 * * *'   # 13h BRT - CONTEUDO
+    - cron: '0 21 * * *'   # 18h BRT - CTA
+  workflow_dispatch:
+    inputs:
+      tipo:
+        description: 'Tipo a postar (MENTALIDADE/CONTEUDO/CTA)'
+        required: true
+        default: 'MENTALIDADE'
+
+jobs:
+  postar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Decidir tipo
+        id: tipo
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "tipo=${{ github.event.inputs.tipo }}" >> $GITHUB_OUTPUT
+          else
+            HOUR=$(date -u +%H)
+            if [ "$HOUR" = "12" ]; then echo "tipo=MENTALIDADE" >> $GITHUB_OUTPUT
+            elif [ "$HOUR" = "16" ]; then echo "tipo=CONTEUDO" >> $GITHUB_OUTPUT
+            else echo "tipo=CTA" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+      - name: Gerar conteudos
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python gerar.py
+
+      - name: Postar
+        env:
+          HCTI_USER: ${{ secrets.HCTI_USER }}
+          HCTI_KEY: ${{ secrets.HCTI_KEY }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          FB_TOKEN: ${{ secrets.FB_TOKEN }}
+        run: python postar.py ${{ steps.tipo.outputs.tipo }}
