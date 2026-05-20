@@ -3,6 +3,7 @@ Uso: python postar.py MENTALIDADE
 """
 import json
 import os
+import subprocess
 import sys
 import time
 import urllib.parse
@@ -43,27 +44,20 @@ html = (
 
 print(f"=== {TIPO} ===")
 print("1. Gerando imagem HCTI...")
-hcti_body = urllib.parse.urlencode({
-    "html": html,
-    "google_fonts": "Poppins",
-    "viewport_width": "1080",
-    "viewport_height": "1080",
-    "device_scale": "1",
-    "ms_delay": "500",
-}).encode("utf-8")
-import base64
-auth = base64.b64encode(f"{HCTI_USER}:{HCTI_KEY}".encode()).decode()
-hcti_req = urllib.request.Request(
-    "https://hcti.io/v1/image",
-    data=hcti_body,
-    method="POST",
-    headers={
-        "Authorization": f"Basic {auth}",
-        "Content-Type": "application/x-www-form-urlencoded",
-    },
-)
-with urllib.request.urlopen(hcti_req, timeout=60) as r:
-    image_url = json.loads(r.read().decode("utf-8"))["url"]
+with open("_tmp.html", "w", encoding="utf-8") as f:
+    f.write(html)
+r = subprocess.run([
+    "curl", "-s",
+    "-u", f"{HCTI_USER}:{HCTI_KEY}",
+    "-X", "POST", "https://hcti.io/v1/image",
+    "--data-urlencode", "html@_tmp.html",
+    "--data-urlencode", "google_fonts=Poppins",
+    "--data-urlencode", "viewport_width=1080",
+    "--data-urlencode", "viewport_height=1080",
+    "--data-urlencode", "device_scale=1",
+    "--data-urlencode", "ms_delay=500",
+], capture_output=True, text=True, encoding="utf-8")
+image_url = json.loads(r.stdout)["url"]
 print(f"   URL: {image_url}")
 
 print("2. Criando container IG...")
