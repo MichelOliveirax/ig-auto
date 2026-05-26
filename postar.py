@@ -23,43 +23,40 @@ with open("conteudo.json", "r", encoding="utf-8") as f:
 CSS_BASE = """
 html,body{margin:0;padding:0;background:#fff;color:#000;color-scheme:light}
 *{box-sizing:border-box;font-family:'Poppins',Arial,sans-serif}
-.wrap{width:1080px;height:1080px;display:flex;flex-direction:column;background:#fff;color:#000;padding:80px;position:relative}
-.brand{position:absolute;bottom:50px;left:80px;font-size:22px;font-weight:700;color:#000;opacity:0.55;letter-spacing:1px}
-.pageno{position:absolute;bottom:50px;right:80px;font-size:22px;font-weight:700;color:#000;opacity:0.55}
-.arrow{position:absolute;bottom:120px;right:80px;font-size:48px;color:#000;opacity:0.4}
+.wrap{width:1080px;height:1080px;display:flex;flex-direction:column;background:#fff;color:#000;padding:150px 140px;position:relative;text-align:center;align-items:center}
+.brand{position:absolute;bottom:70px;left:0;right:0;text-align:center;font-size:22px;font-weight:700;color:#000;opacity:0.55;letter-spacing:1px}
+.pageno{position:absolute;top:70px;right:0;left:0;text-align:center;font-size:22px;font-weight:700;color:#000;opacity:0.45}
+.arrow{position:absolute;bottom:140px;left:0;right:0;text-align:center;font-size:48px;color:#000;opacity:0.4}
 """
 
 def slide_capa(titulo, hook):
     return f"""<html><head><style>{CSS_BASE}
-.capa{{flex:1;display:flex;flex-direction:column;justify-content:center}}
-.eyebrow{{font-size:24px;font-weight:600;color:#000;opacity:0.55;text-transform:uppercase;letter-spacing:3px;margin-bottom:30px}}
-.titulo-capa{{font-size:88px;font-weight:900;line-height:1.05;color:#000;margin:0 0 40px 0;letter-spacing:-2px}}
-.hook-capa{{font-size:34px;font-weight:600;color:#000;line-height:1.3;opacity:0.85}}
-.linha{{width:100px;height:6px;background:#000;margin:40px 0}}
+.capa{{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%}}
+.eyebrow{{font-size:22px;font-weight:600;color:#000;opacity:0.55;text-transform:uppercase;letter-spacing:3px;margin-bottom:30px}}
+.titulo-capa{{font-size:82px;font-weight:900;line-height:1.05;color:#000;margin:0 0 30px 0;letter-spacing:-2px;max-width:100%}}
+.hook-capa{{font-size:32px;font-weight:600;color:#000;line-height:1.3;opacity:0.85;max-width:90%}}
+.linha{{width:100px;height:6px;background:#000;margin:30px auto}}
 </style></head><body><div class="wrap"><div class="capa">
 <div class="eyebrow">@EUSOUMICHELOLIVEIRA</div>
 <div class="titulo-capa">{titulo}</div>
 <div class="linha"></div>
 <div class="hook-capa">{hook}</div>
 </div>
-<div class="arrow">→</div>
 <div class="brand">ARRASTA →</div>
-<div class="pageno">01/05</div>
 </div></body></html>"""
 
 def slide_texto(numero, total, label, texto):
     return f"""<html><head><style>{CSS_BASE}
-.body-slide{{flex:1;display:flex;flex-direction:column;justify-content:center}}
-.label{{font-size:24px;font-weight:700;color:#000;opacity:0.45;text-transform:uppercase;letter-spacing:3px;margin-bottom:30px}}
-.texto-slide{{font-size:50px;font-weight:700;color:#000;line-height:1.25;letter-spacing:-1px}}
-.barra{{width:60px;height:5px;background:#000;margin-bottom:30px}}
+.body-slide{{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%}}
+.label{{font-size:22px;font-weight:700;color:#000;opacity:0.45;text-transform:uppercase;letter-spacing:3px;margin-bottom:30px}}
+.texto-slide{{font-size:48px;font-weight:700;color:#000;line-height:1.25;letter-spacing:-1px;max-width:95%}}
+.barra{{width:60px;height:5px;background:#000;margin:0 auto 30px}}
 </style></head><body><div class="wrap"><div class="body-slide">
 <div class="barra"></div>
 <div class="label">{label}</div>
 <div class="texto-slide">{texto}</div>
 </div>
-<div class="brand">@eusoumicheloliveira</div>
-<div class="pageno">{numero:02d}/{total:02d}</div>
+<div class="brand">@eusoumicheloliveira  ·  {numero:02d}/{total:02d}</div>
 </div></body></html>"""
 
 def slide_destaque(numero, total, texto):
@@ -67,37 +64,34 @@ def slide_destaque(numero, total, texto):
     return f"""<html><head><style>
 html,body{{margin:0;padding:0;background:#000;color:#fff;color-scheme:dark}}
 *{{box-sizing:border-box;font-family:'Poppins',Arial,sans-serif}}
-.wrap{{width:1080px;height:1080px;display:flex;flex-direction:column;background:#000;color:#fff;padding:80px;position:relative}}
-.body-slide{{flex:1;display:flex;flex-direction:column;justify-content:center}}
-.label{{font-size:24px;font-weight:700;color:#fff;opacity:0.6;text-transform:uppercase;letter-spacing:3px;margin-bottom:30px}}
-.texto-slide{{font-size:54px;font-weight:800;color:#fff;line-height:1.2;letter-spacing:-1px}}
-.barra{{width:80px;height:6px;background:#fff;margin-bottom:30px}}
-.brand{{position:absolute;bottom:50px;left:80px;font-size:22px;font-weight:700;color:#fff;opacity:0.55;letter-spacing:1px}}
-.pageno{{position:absolute;bottom:50px;right:80px;font-size:22px;font-weight:700;color:#fff;opacity:0.55}}
+.wrap{{width:1080px;height:1080px;display:flex;flex-direction:column;background:#000;color:#fff;padding:150px 140px;position:relative;text-align:center;align-items:center}}
+.body-slide{{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%}}
+.label{{font-size:22px;font-weight:700;color:#fff;opacity:0.6;text-transform:uppercase;letter-spacing:3px;margin-bottom:30px}}
+.texto-slide{{font-size:52px;font-weight:800;color:#fff;line-height:1.2;letter-spacing:-1px;max-width:95%}}
+.barra{{width:80px;height:6px;background:#fff;margin:0 auto 30px}}
+.brand{{position:absolute;bottom:70px;left:0;right:0;text-align:center;font-size:22px;font-weight:700;color:#fff;opacity:0.55;letter-spacing:1px}}
 </style></head><body><div class="wrap"><div class="body-slide">
 <div class="barra"></div>
 <div class="label">EXEMPLO REAL</div>
 <div class="texto-slide">{texto}</div>
 </div>
-<div class="brand">@eusoumicheloliveira</div>
-<div class="pageno">{numero:02d}/{total:02d}</div>
+<div class="brand">@eusoumicheloliveira  ·  {numero:02d}/{total:02d}</div>
 </div></body></html>"""
 
 def slide_cta(numero, total, texto, cta):
     return f"""<html><head><style>{CSS_BASE}
-.body-slide{{flex:1;display:flex;flex-direction:column;justify-content:center}}
-.label{{font-size:24px;font-weight:700;color:#000;opacity:0.45;text-transform:uppercase;letter-spacing:3px;margin-bottom:30px}}
-.texto-slide{{font-size:44px;font-weight:700;color:#000;line-height:1.25;letter-spacing:-1px;margin-bottom:40px}}
-.barra{{width:60px;height:5px;background:#000;margin-bottom:30px}}
-.cta-box{{background:#000;color:#fff;padding:36px 40px;border-radius:14px;font-size:30px;font-weight:700;line-height:1.3;margin-top:30px}}
+.body-slide{{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%}}
+.label{{font-size:22px;font-weight:700;color:#000;opacity:0.45;text-transform:uppercase;letter-spacing:3px;margin-bottom:30px}}
+.texto-slide{{font-size:42px;font-weight:700;color:#000;line-height:1.25;letter-spacing:-1px;margin-bottom:40px;max-width:95%}}
+.barra{{width:60px;height:5px;background:#000;margin:0 auto 30px}}
+.cta-box{{background:#000;color:#fff;padding:32px 40px;border-radius:14px;font-size:28px;font-weight:700;line-height:1.3;margin-top:30px;max-width:95%}}
 </style></head><body><div class="wrap"><div class="body-slide">
 <div class="barra"></div>
 <div class="label">AGORA E COM VOCE</div>
 <div class="texto-slide">{texto}</div>
 <div class="cta-box">{cta}</div>
 </div>
-<div class="brand">@eusoumicheloliveira</div>
-<div class="pageno">{numero:02d}/{total:02d}</div>
+<div class="brand">@eusoumicheloliveira  ·  {numero:02d}/{total:02d}</div>
 </div></body></html>"""
 
 SLIDES_HTML = [
