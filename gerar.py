@@ -55,6 +55,53 @@ ESTILOS_GANCHO = [
     "regra inversa: faca o oposto da maioria",
 ]
 
+# CONHECIMENTO TECNICO OBRIGATORIO - injetado em todo prompt pra evitar alucinacao
+CONHECIMENTO_TECNICO = """
+=== VERDADES TECNICAS DO LEILAO DE IMOVEIS NO BRASIL (NUNCA CONTRADIGA) ===
+
+CUSTOS REAIS de uma arrematacao (use SEMPRE quando falar de "lance + custos" ou calcular ROI):
+1. Lance (valor pago no leilao)
+2. Comissao do leiloeiro: 5% sobre o valor do lance (extrajudicial) ou 5% sobre o lance (judicial, fixada por lei)
+3. ITBI: 2% a 3% do valor (varia por municipio) - SP=3%, RJ=2%, BH=3%
+4. Registro do imovel no cartorio: ~1% do valor (taxa cartorial)
+5. Dividas em atraso herdadas (CASO o edital nao quite):
+   - IPTU atrasado
+   - Condominio atrasado (em leilao extrajudicial NAO se transfere, em judicial pode)
+   - Taxas de servico (lixo, agua)
+6. Custo de desocupacao se imovel ocupado: acao de imissao na posse (R$ 3-15mil + 6-18 meses)
+7. Reforma (variavel)
+8. Documentacao: averbacao da carta de arrematacao (R$ 500-2000)
+9. SE FINANCIADO: parcelas do financiamento + custos do contrato Caixa
+10. Imposto sobre ganho de capital na venda: 15% sobre lucro (pessoa fisica) - 22.5% se >R$5mi
+
+REGRAS LEGAIS:
+- Carta de arrematacao = documento que comprova propriedade (sai em 30-60 dias)
+- Prazo de pagamento: 24h apos arremate (extrajudicial) ou 15 dias (judicial)
+- Sinal: 5% no ato, restante em ate 24h (extrajudicial)
+- Multa por desistencia: 20% do lance + perda do sinal
+- Imovel ocupado: arrematante assume a desocupacao
+- Hipoteca: extinta automaticamente apos arrematacao (Lei 9.514)
+- Penhora trabalhista: NAO se extingue, herdada pelo arrematante (CUIDADO)
+- IPVA/multas: irrelevante (so imovel, nao veiculo)
+
+NUMEROS REALISTAS (use como base):
+- Desconto medio em leilao judicial 1a praca: 0% (avaliacao)
+- Desconto em 2a praca: 25% a 50%
+- Desconto em extrajudicial banco: 20% a 40%
+- Tempo medio entre arremate e posse: 3 a 12 meses (livre) ou 6 a 24 meses (ocupado)
+- Custo total real (lance + tudo): ~12% a 18% acima do lance
+
+JAMAIS DIGA:
+- "Custos = despejo + reforma" (incompleto e amador)
+- "Ganho 50% garantido" (nao existe garantia)
+- "Sem riscos" (sempre tem risco juridico)
+- Valores impossiveis (apto SP centro arrematado por R$ 50mil)
+- "Caixa devolve dinheiro se desistir" (nao devolve)
+
+QUANDO FALAR EM EXEMPLO NUMERICO, use estrutura:
+"Imovel avaliado R$ X | Lance R$ Y | + Custos (ITBI/registro/leiloeiro/desocupacao) ~12% = Investimento total R$ Z | Vende por R$ W | Lucro liquido R$ K apos IR 15%"
+"""
+
 PROMPTS = {
     "MENTALIDADE": """Voce e copywriter VIRAL especialista em leilao de imoveis. Cria post pra @eusoumicheloliveira que vai postar AGORA no horario de mentalidade (09h).
 
@@ -145,7 +192,7 @@ estilo = random.choice(ESTILOS_GANCHO)
 prompt = PROMPTS[TIPO].format(
     estilo=estilo,
     ganchos_usados=json.dumps(ganchos_usados[-10:], ensure_ascii=False),
-)
+) + "\n\n" + CONHECIMENTO_TECNICO + "\n\nRESPEITE 100% as verdades tecnicas acima. Se o post mencionar custos, calcular ROI, ou citar leis, USE os numeros e regras dessa base. Errar = perder credibilidade do perfil."
 
 body = json.dumps({
     "model": "claude-sonnet-4-5",
