@@ -276,7 +276,7 @@ prompt = PROMPTS[TIPO].format(
 
 body = json.dumps({
     "model": "claude-sonnet-4-5",
-    "max_tokens": 3000,
+    "max_tokens": 4500,
     "messages": [{"role": "user", "content": prompt}],
 }).encode("utf-8")
 
@@ -293,16 +293,23 @@ with urllib.request.urlopen(req, timeout=120) as r:
     resp = json.loads(r.read().decode("utf-8"))
 
 texto = resp["content"][0]["text"].strip()
-if texto.startswith("```"):
-    texto = texto.split("```")[1]
-    if texto.startswith("json"):
-        texto = texto[4:]
-texto = texto.strip()
-
-data = json.loads(texto)
+# extrai o primeiro objeto JSON da resposta (ignora preâmbulo/markdown)
+import re
+m = re.search(r"\{[\s\S]*\}", texto)
+if not m:
+    print("RESPOSTA CLAUDE:", texto[:2000])
+    raise RuntimeError("Nao encontrou JSON na resposta")
+try:
+    data = json.loads(m.group(0))
+except json.JSONDecodeError as e:
+    print("JSON malformado:", e)
+    print("RESPOSTA CLAUDE:", texto[:2000])
+    raise
 
 for campo in ["titulo", "slide1", "slide2", "slide3", "slide4", "slide5", "legenda"]:
-    assert data.get(campo), f"Campo vazio: {campo}"
+    if not data.get(campo):
+        print("ESTRUTURA RETORNADA:", json.dumps(data, ensure_ascii=False)[:1500])
+        raise AssertionError(f"Campo vazio: {campo}")
 
 with open("conteudo.json", "w", encoding="utf-8") as f:
     json.dump(data, f, ensure_ascii=False, indent=2)
