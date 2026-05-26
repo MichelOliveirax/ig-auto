@@ -306,6 +306,14 @@ except json.JSONDecodeError as e:
     print("RESPOSTA CLAUDE:", texto[:2000])
     raise
 
+# achata estruturas aninhadas (Claude as vezes envelopa em "slides" ou similar)
+if "slides" in data and isinstance(data["slides"], dict):
+    legenda = data.get("legenda")
+    cta = data.get("cta")
+    data = {**data["slides"]}
+    if legenda: data["legenda"] = legenda
+    if cta: data["cta"] = cta
+
 for campo in ["titulo", "slide1", "slide2", "slide3", "slide4", "slide5", "legenda"]:
     if not data.get(campo):
         print("ESTRUTURA RETORNADA:", json.dumps(data, ensure_ascii=False)[:1500])
