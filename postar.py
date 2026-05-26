@@ -107,18 +107,27 @@ def hcti_image(html, idx):
     path = f"_slide_{idx}.html"
     with open(path, "w", encoding="utf-8") as f:
         f.write(html)
-    r = subprocess.run([
-        "curl", "-s",
-        "-u", f"{HCTI_USER}:{HCTI_KEY}",
-        "-X", "POST", "https://hcti.io/v1/image",
-        "--data-urlencode", f"html@{path}",
-        "--data-urlencode", "google_fonts=Poppins",
-        "--data-urlencode", "viewport_width=1080",
-        "--data-urlencode", "viewport_height=1080",
-        "--data-urlencode", "device_scale=1",
-        "--data-urlencode", "ms_delay=500",
-    ], capture_output=True, text=True, encoding="utf-8")
-    return json.loads(r.stdout)["url"]
+    for tentativa in range(3):
+        r = subprocess.run([
+            "curl", "-s",
+            "-u", f"{HCTI_USER}:{HCTI_KEY}",
+            "-X", "POST", "https://hcti.io/v1/image",
+            "--data-urlencode", f"html@{path}",
+            "--data-urlencode", "google_fonts=Poppins",
+            "--data-urlencode", "viewport_width=1080",
+            "--data-urlencode", "viewport_height=1080",
+            "--data-urlencode", "device_scale=1",
+            "--data-urlencode", "ms_delay=500",
+        ], capture_output=True, text=True, encoding="utf-8")
+        try:
+            resp = json.loads(r.stdout)
+            if resp.get("url"):
+                return resp["url"]
+            print(f"   HCTI tentativa {tentativa+1} sem url: {r.stdout[:300]}")
+        except json.JSONDecodeError:
+            print(f"   HCTI tentativa {tentativa+1} resposta invalida: {r.stdout[:300]}")
+        time.sleep(3)
+    raise RuntimeError(f"HCTI falhou apos 3 tentativas no slide {idx}")
 
 
 def ig_post(url, params):
