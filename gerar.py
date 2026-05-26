@@ -293,17 +293,53 @@ with urllib.request.urlopen(req, timeout=120) as r:
     resp = json.loads(r.read().decode("utf-8"))
 
 texto = resp["content"][0]["text"].strip()
-# extrai o primeiro objeto JSON da resposta (ignora preâmbulo/markdown)
-import re
-m = re.search(r"\{[\s\S]*\}", texto)
-if not m:
+# remove cercas markdown se houver
+if "```" in texto:
+    parts = texto.split("```")
+    for part in parts:
+        if part.strip().startswith("{") or part.strip().startswith("json"):
+            texto = part.strip()
+            if texto.startswith("json"):
+                texto = texto[4:].strip()
+            break
+
+# acha o primeiro { e percorre contando chaves pra pegar JSON balanceado
+start = texto.find("{")
+if start < 0:
     print("RESPOSTA CLAUDE:", texto[:2000])
-    raise RuntimeError("Nao encontrou JSON na resposta")
+    raise RuntimeError("Nao encontrou { na resposta")
+depth = 0
+end = -1
+in_string = False
+escape = False
+for i in range(start, len(texto)):
+    c = texto[i]
+    if escape:
+        escape = False
+        continue
+    if c == "\\":
+        escape = True
+        continue
+    if c == '"':
+        in_string = not in_string
+        continue
+    if in_string:
+        continue
+    if c == "{":
+        depth += 1
+    elif c == "}":
+        depth -= 1
+        if depth == 0:
+            end = i
+            break
+if end < 0:
+    print("RESPOSTA CLAUDE:", texto[:2000])
+    raise RuntimeError("JSON nao balanceado")
 try:
-    data = json.loads(m.group(0))
+    data = json.loads(texto[start:end+1])
 except json.JSONDecodeError as e:
     print("JSON malformado:", e)
-    print("RESPOSTA CLAUDE:", texto[:2000])
+    print("EXTRAIDO:", texto[start:end+1][:2000])
     raise
 
 # achata estruturas aninhadas (Claude as vezes envelopa em "slides" ou similar)
