@@ -272,7 +272,14 @@ estilo = random.choice(ESTILOS_GANCHO)
 prompt = PROMPTS[TIPO].format(
     estilo=estilo,
     ganchos_usados=json.dumps(ganchos_usados[-10:], ensure_ascii=False),
-) + "\n\n" + CONHECIMENTO_TECNICO + "\n\nRESPEITE 100% as verdades tecnicas acima. Se o post mencionar custos, calcular ROI, ou citar leis, USE os numeros e regras dessa base. Errar = perder credibilidade do perfil."
+) + "\n\n" + CONHECIMENTO_TECNICO + """
+
+RESPEITE 100% as verdades tecnicas acima. Se o post mencionar custos, calcular ROI, ou citar leis, USE os numeros e regras dessa base. Errar = perder credibilidade do perfil.
+
+REGRA DE ORTOGRAFIA OBRIGATORIA:
+Este prompt esta escrito SEM acentos para evitar problemas tecnicos, MAS seu OUTPUT deve SEMPRE usar a ortografia normal do portugues brasileiro COM TODOS OS ACENTOS: a (á à ã â), e (é ê), i (í), o (ó ô õ), u (ú), c (ç).
+Exemplos do que ESCREVER no output: "imóvel" (não "imovel"), "não" (não "nao"), "você" (não "voce"), "está" (não "esta"), "também" (não "tambem"), "será" (não "sera"), "leilão" (não "leilao"), "extrajudicial", "judicial", "ARREMATAÇÃO" maiusculo com cedilha tambem.
+Se escrever sem acentos, o post fica feio e amador."""
 
 body = json.dumps({
     "model": "claude-sonnet-4-5",
