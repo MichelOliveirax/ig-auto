@@ -276,6 +276,9 @@ prompt = PROMPTS[TIPO].format(
 
 RESPEITE 100% as verdades tecnicas acima. Se o post mencionar custos, calcular ROI, ou citar leis, USE os numeros e regras dessa base. Errar = perder credibilidade do perfil.
 
+REGRA DE HASHTAGS:
+NUNCA, JAMAIS, EM HIPOTESE ALGUMA coloque hashtags (#palavra) nos campos slide1, slide2, slide3, slide4, slide5 ou titulo. Hashtags vao SOMENTE no campo legenda, no final.
+
 REGRA DE ORTOGRAFIA OBRIGATORIA:
 Este prompt esta escrito SEM acentos para evitar problemas tecnicos, MAS seu OUTPUT deve SEMPRE usar a ortografia normal do portugues brasileiro COM TODOS OS ACENTOS: a (á à ã â), e (é ê), i (í), o (ó ô õ), u (ú), c (ç).
 Exemplos do que ESCREVER no output: "imóvel" (não "imovel"), "não" (não "nao"), "você" (não "voce"), "está" (não "esta"), "também" (não "tambem"), "será" (não "sera"), "leilão" (não "leilao"), "extrajudicial", "judicial", "ARREMATAÇÃO" maiusculo com cedilha tambem.
