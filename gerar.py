@@ -1,47 +1,156 @@
-"""Gera 3 conteudos (MENTALIDADE/CONTEUDO/CTA) via Claude API e salva em conteudos_gerados.json."""
+"""Gera UM conteudo (MENTALIDADE/CONTEUDO/CTA/CASE) viral via Claude.
+Uso: python gerar.py MENTALIDADE
+Salva: conteudo.json (1 conteudo so) + atualiza ganchos_usados.json
+"""
 import json
 import os
+import sys
 import urllib.request
+
+TIPO = sys.argv[1].upper()
+assert TIPO in ("MENTALIDADE", "CONTEUDO", "CTA", "CASE"), f"Tipo invalido: {TIPO}"
 
 ANTHROPIC_KEY = os.environ["ANTHROPIC_API_KEY"]
 
-PROMPT = """Voce e copywriter especialista em leilao de imoveis no Instagram (@eusoumicheloliveira).
+# carrega ganchos ja usados (ultimos 10) pra forcar variacao
+HOOKS_FILE = "ganchos_usados.json"
+ganchos_usados = []
+if os.path.exists(HOOKS_FILE):
+    try:
+        ganchos_usados = json.load(open(HOOKS_FILE, encoding="utf-8"))
+    except Exception:
+        ganchos_usados = []
 
-Gere 3 conteudos em JSON puro (sem markdown, sem comentarios), com esta estrutura EXATA:
+# 30 estilos de gancho para Claude escolher (rotaciona)
+ESTILOS_GANCHO = [
+    "pergunta provocativa que parece absurda mas tem resposta logica",
+    "estatistica chocante com numero especifico (ex: 73% dos compradores...)",
+    "verdade desconfortavel que ninguem fala",
+    "comparacao inesperada entre 2 caminhos",
+    "confissao pessoal que cria identificacao",
+    "mito popular que voce vai derrubar",
+    "cenario hipotetico vivido (Imagina que...)",
+    "erro caro que pessoas cometem",
+    "numero especifico do dia/mes/ano",
+    "frase polemica que divide opinioes",
+    "antes vs depois com transformacao real",
+    "calculo simples revelador (R$ X / mes = Y em 1 ano)",
+    "metafora visual forte",
+    "segredo dos profissionais da area",
+    "lista do que NAO fazer",
+    "promessa especifica e mensuravel",
+    "historia curta de 3 frases com twist",
+    "pergunta retorica que so quem entende responde",
+    "alerta urgente baseado em fato recente",
+    "contradicao da industria",
+    "termo tecnico explicado simples (jargao desmistificado)",
+    "case anonimo: aluno X arrematou Y",
+    "comparacao com investimento popular (poupanca, tesouro)",
+    "checklist de 3 itens essenciais",
+    "frase de impacto que dura na cabeca",
+    "data limite real (proximo leilao em X dias)",
+    "padrao que se repete (notei que...)",
+    "exemplo numerico tangivel (imovel de R$ X arrematado por R$ Y)",
+    "vies cognitivo do investidor leigo",
+    "regra inversa: faca o oposto da maioria",
+]
 
-{
-  "MENTALIDADE": {
-    "titulo": "...",
-    "slide1": "...",
-    "slide2": "...",
-    "slide3": "...",
-    "slide4": "...",
-    "slide5": "...",
-    "legenda": "... com emojis e hashtags ...",
-    "cta": "..."
-  },
-  "CONTEUDO": { mesma estrutura },
-  "CTA": { mesma estrutura }
+PROMPTS = {
+    "MENTALIDADE": """Voce e copywriter VIRAL especialista em leilao de imoveis. Cria post pra @eusoumicheloliveira que vai postar AGORA no horario de mentalidade (09h).
+
+OBJETIVO: gerar identificacao + insight de mentalidade de investidor. NAO vender curso.
+
+ESTRUTURA OBRIGATORIA (carrossel 5 slides):
+- titulo (5-8 palavras, impactante, vira capa do slide 1)
+- slide1: HOOK gancho (max 12 palavras, formato pergunta/afirmacao chocante)
+- slide2: o problema/contexto (max 20 palavras)
+- slide3: a virada/insight (max 25 palavras)
+- slide4: exemplo numerico CONCRETO com R$ (max 25 palavras)
+- slide5: pergunta que gera comentario + chamada pra salvar (max 22 palavras)
+- legenda: 4-6 paragrafos curtos com emojis. Final OBRIGATORIO: pergunta direta + "Comenta aqui embaixo 👇" + linha em branco + 8 hashtags relevantes
+- cta: literal "Salva esse post se voce vai arrematar seu 1o imovel em 2026."
+
+REGRA DE GANCHO: usa estilo "{estilo}". NUNCA repetir esses ganchos ja usados: {ganchos_usados}
+
+REGRA DE VIRALIZACAO:
+- Numeros especificos (nao "muito barato", mas "R$ 180.000")
+- Tom direto, brasileiro, sem palavra dificil
+- Frases curtas (max 15 palavras cada)
+- ZERO mencao ao curso
+
+Retorne SOMENTE JSON, comecando com {{""",
+
+    "CONTEUDO": """Voce e copywriter VIRAL especialista em leilao de imoveis. Cria post EDUCATIVO pra @eusoumicheloliveira no horario de conteudo (13h).
+
+OBJETIVO: ensinar UM conceito tecnico de leilao em 5 slides. Salvavel = viralizavel.
+
+ESCOLHA UM TEMA dessa lista (varie a cada vez): prazo de desfazimento, calculo de lance maximo, imovel ocupado vs livre, edital - o que olhar, ITBI no leilao, sinal de 5%, fim de hipoteca, leilao judicial vs extrajudicial, divida do anterior, condominio em atraso, vistoria possivel?, financiamento direto Caixa, comissao do leiloeiro, cuidados com averbacao, prazo pra pagar, multa de 20%, recurso de arrematante, posse vs propriedade, registrar com decisao judicial, custo total real (lance + custos).
+
+ESTRUTURA (carrossel 5 slides):
+- titulo (titulo do tema, 5-8 palavras)
+- slide1: gancho-pergunta que provoca curiosidade (max 14 palavras)
+- slide2: a definicao em 1 frase clara (max 22 palavras)
+- slide3: como funciona na pratica (max 25 palavras)
+- slide4: exemplo numerico real com R$ (max 25 palavras)
+- slide5: dica pratica + pergunta (max 22 palavras)
+- legenda: 4-6 paragrafos com emojis. Final OBRIGATORIO: pergunta + "Conta aqui 👇" + 8 hashtags
+- cta: "Comenta QUERO SABER MAIS pra eu fazer mais conteudos desses."
+
+REGRA DE GANCHO: usa estilo "{estilo}". NAO repetir: {ganchos_usados}
+
+ZERO mencao a curso. Tom: professor amigo. Retorne SOMENTE JSON.""",
+
+    "CTA": """Voce e copywriter VIRAL especialista em leilao de imoveis. Cria post de VENDA pra curso "Arremate em 30 Dias" no @eusoumicheloliveira (18h, terca ou sexta).
+
+OBJETIVO: vender curso SEM parecer venda agressiva. Promessa especifica + prova social + escassez sutil.
+
+ESTRUTURA (carrossel 5 slides):
+- titulo (titulo do post, 5-8 palavras)
+- slide1: gancho que cria desejo (max 14 palavras)
+- slide2: dor do nao-investidor (max 22 palavras)
+- slide3: ponte: o que muda quando entende leilao (max 25 palavras)
+- slide4: prova: numeros de aluno real ou seus (R$ arrematado, % desconto) max 25 palavras
+- slide5: convite suave + pergunta (max 22 palavras)
+- legenda: 5-7 paragrafos com emojis. Final OBRIGATORIO: pergunta + "Comenta EU QUERO ou link na bio" + linha em branco + 8 hashtags
+- cta: "Comenta EU QUERO ou acessa o link da bio. Arremate em 30 Dias."
+
+REGRA DE GANCHO: usa estilo "{estilo}". NAO repetir: {ganchos_usados}
+
+NUNCA usar "Imagina arrematar seu primeiro imovel" - frase batida. Retorne SOMENTE JSON.""",
+
+    "CASE": """Voce e copywriter VIRAL especialista em leilao de imoveis. Cria CASE DE SUCESSO (real ou plausivel) pra @eusoumicheloliveira no horario de fechamento (18h).
+
+OBJETIVO: contar UMA historia curta de arrematacao bem-sucedida com numeros reais. Prova social = converte.
+
+INVENTE um case plausivel (apto/casa/sala comercial, cidade brasileira, valor de mercado, valor arrematado, lucro/economia). Use nome fictio ("Carlos, sao paulo, 38 anos").
+
+ESTRUTURA (carrossel 5 slides):
+- titulo (resumo do case, 5-8 palavras)
+- slide1: gancho com numero do case (max 14 palavras)
+- slide2: contexto: quem era a pessoa antes (max 22 palavras)
+- slide3: o que ela fez (acao especifica) (max 25 palavras)
+- slide4: numeros: avaliacao R$ X, lance R$ Y, economia R$ Z (max 25 palavras)
+- slide5: licao aprendida + pergunta (max 22 palavras)
+- legenda: 5-7 paragrafos narrativos com emojis. Final OBRIGATORIO: pergunta + "Comenta aqui 👇" + 8 hashtags
+- cta: "Salva esse case pra inspirar sua proxima arrematacao."
+
+REGRA DE GANCHO: usa estilo "{estilo}". NAO repetir: {ganchos_usados}
+
+Retorne SOMENTE JSON.""",
 }
 
-Regras:
-- MENTALIDADE: post sobre mentalidade de investidor / por que agir agora
-- CONTEUDO: post tecnico/educativo sobre leilao de imoveis
-- CTA: post chamando pro curso "Arremate em 30 Dias"
-- titulo: 5-8 palavras impactantes
-- slide1: pergunta ou afirmacao gancho (max 20 palavras)
-- slide2/slide3: explicacao em 1 frase cada (max 25 palavras)
-- slide4: exemplo numerico concreto (R$ valor arrematado vs valor mercado)
-- slide5: fechamento + chamada (max 25 palavras)
-- legenda: 6-10 paragrafos curtos com emojis, terminando com 10 hashtags
-- Tom: direto, brasileiro, vendedor
+import random
+estilo = random.choice(ESTILOS_GANCHO)
 
-Retorne SOMENTE o JSON, comecando com { e terminando com }."""
+prompt = PROMPTS[TIPO].format(
+    estilo=estilo,
+    ganchos_usados=json.dumps(ganchos_usados[-10:], ensure_ascii=False),
+)
 
 body = json.dumps({
     "model": "claude-sonnet-4-5",
-    "max_tokens": 4000,
-    "messages": [{"role": "user", "content": PROMPT}],
+    "max_tokens": 3000,
+    "messages": [{"role": "user", "content": prompt}],
 }).encode("utf-8")
 
 req = urllib.request.Request(
@@ -57,7 +166,6 @@ with urllib.request.urlopen(req, timeout=120) as r:
     resp = json.loads(r.read().decode("utf-8"))
 
 texto = resp["content"][0]["text"].strip()
-# remove cercas markdown se vierem
 if texto.startswith("```"):
     texto = texto.split("```")[1]
     if texto.startswith("json"):
@@ -66,15 +174,18 @@ texto = texto.strip()
 
 data = json.loads(texto)
 
-# valida estrutura
-for tipo in ["MENTALIDADE", "CONTEUDO", "CTA"]:
-    p = data[tipo]
-    for campo in ["titulo", "slide1", "slide2", "slide3", "slide4", "slide5", "legenda"]:
-        assert p.get(campo), f"Campo vazio: {tipo}.{campo}"
+for campo in ["titulo", "slide1", "slide2", "slide3", "slide4", "slide5", "legenda"]:
+    assert data.get(campo), f"Campo vazio: {campo}"
 
-with open("conteudos_gerados.json", "w", encoding="utf-8") as f:
+with open("conteudo.json", "w", encoding="utf-8") as f:
     json.dump(data, f, ensure_ascii=False, indent=2)
 
-print("Conteudos gerados com sucesso")
-for tipo in data:
-    print(f"  {tipo}: {data[tipo]['titulo']}")
+# salva o gancho usado pra nao repetir
+ganchos_usados.append(data["slide1"])
+ganchos_usados = ganchos_usados[-30:]  # mantem ultimos 30
+with open(HOOKS_FILE, "w", encoding="utf-8") as f:
+    json.dump(ganchos_usados, f, ensure_ascii=False, indent=2)
+
+print(f"Conteudo {TIPO} gerado:")
+print(f"  Titulo: {data['titulo']}")
+print(f"  Hook (estilo {estilo[:40]}): {data['slide1']}")

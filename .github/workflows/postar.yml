@@ -2,16 +2,20 @@ name: Postar Instagram Leilao
 
 on:
   schedule:
-    # Horarios UTC (Brasil = UTC-3)
     - cron: '0 12 * * *'   # 09h BRT - MENTALIDADE
     - cron: '0 16 * * *'   # 13h BRT - CONTEUDO
-    - cron: '0 21 * * *'   # 18h BRT - CTA
+    - cron: '0 21 * * 2,5' # 18h BRT terca/sexta - CTA
+    - cron: '0 21 * * 0,1,3,4,6' # 18h BRT outros dias - CASE
   workflow_dispatch:
     inputs:
       tipo:
-        description: 'Tipo a postar (MENTALIDADE/CONTEUDO/CTA)'
+        description: 'Tipo (MENTALIDADE/CONTEUDO/CTA/CASE)'
         required: true
         default: 'MENTALIDADE'
+      test:
+        description: 'TEST mode (nao publica, so monta carrossel)'
+        required: false
+        default: 'false'
 
 jobs:
   postar:
@@ -30,21 +34,39 @@ jobs:
             echo "tipo=${{ github.event.inputs.tipo }}" >> $GITHUB_OUTPUT
           else
             HOUR=$(date -u +%H)
-            if [ "$HOUR" = "12" ]; then echo "tipo=MENTALIDADE" >> $GITHUB_OUTPUT
-            elif [ "$HOUR" = "16" ]; then echo "tipo=CONTEUDO" >> $GITHUB_OUTPUT
-            else echo "tipo=CTA" >> $GITHUB_OUTPUT
+            DOW=$(date -u +%u)  # 1=mon..7=sun
+            if [ "$HOUR" = "12" ]; then
+              echo "tipo=MENTALIDADE" >> $GITHUB_OUTPUT
+            elif [ "$HOUR" = "16" ]; then
+              echo "tipo=CONTEUDO" >> $GITHUB_OUTPUT
+            elif [ "$HOUR" = "21" ]; then
+              if [ "$DOW" = "2" ] || [ "$DOW" = "5" ]; then
+                echo "tipo=CTA" >> $GITHUB_OUTPUT
+              else
+                echo "tipo=CASE" >> $GITHUB_OUTPUT
+              fi
+            else
+              echo "tipo=MENTALIDADE" >> $GITHUB_OUTPUT
             fi
           fi
 
-      - name: Gerar conteudos
+      - name: Restaurar ganchos usados
+        uses: actions/cache@v4
+        with:
+          path: ganchos_usados.json
+          key: ganchos-${{ github.run_id }}
+          restore-keys: ganchos-
+
+      - name: Gerar conteudo
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: python gerar.py
+        run: python gerar.py ${{ steps.tipo.outputs.tipo }}
 
-      - name: Postar
+      - name: Postar carrossel
         env:
           HCTI_USER: ${{ secrets.HCTI_USER }}
           HCTI_KEY: ${{ secrets.HCTI_KEY }}
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
           FB_TOKEN: ${{ secrets.FB_TOKEN }}
-        run: python postar.py ${{ steps.tipo.outputs.tipo }}
+          TEST: ${{ github.event.inputs.test == 'true' && '1' || '0' }}
+        run: python postar.py

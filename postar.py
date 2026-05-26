@@ -1,92 +1,182 @@
-"""Posta UM tipo (MENTALIDADE/CONTEUDO/CTA) no Instagram preservando UTF-8.
-Uso: python postar.py MENTALIDADE
+"""Posta CARROSSEL de 5 slides no Instagram (UTF-8 preservado).
+Uso: python postar.py
+Le conteudo.json gerado pelo gerar.py.
 """
+import base64
 import json
 import os
 import subprocess
-import sys
 import time
 import urllib.parse
 import urllib.request
-
-TIPO = sys.argv[1].upper()
-assert TIPO in ("MENTALIDADE", "CONTEUDO", "CTA"), f"Tipo invalido: {TIPO}"
 
 HCTI_USER = os.environ["HCTI_USER"]
 HCTI_KEY = os.environ["HCTI_KEY"]
 IG_USER_ID = os.environ["IG_USER_ID"]
 TOKEN = os.environ["FB_TOKEN"]
 
-with open("conteudos_gerados.json", "r", encoding="utf-8") as f:
-    p = json.load(f)[TIPO]
+with open("conteudo.json", "r", encoding="utf-8") as f:
+    p = json.load(f)
 
-html = (
-    "<html><head><style>"
-    "html,body{margin:0;padding:0;background:#fff;color:#000;color-scheme:light}*{box-sizing:border-box}"
-    ".wrap{width:1080px;height:1080px;display:flex;align-items:center;justify-content:center;background:#fff;font-family:'Poppins',Arial,sans-serif;padding:80px 160px}"
-    ".card{width:100%;text-align:center;color:#000}"
-    ".titulo{font-size:42px;font-weight:800;line-height:1.2;margin:0 0 28px 0;color:#000}"
-    ".hr{width:80px;height:3px;background:#000;border:0;margin:28px auto}"
-    ".slide1{font-size:24px;font-weight:700;margin:0 0 36px 0;color:#000;line-height:1.35}"
-    ".slidep{font-size:17px;font-weight:500;line-height:1.5;margin:0 0 22px 0;color:#000}"
-    ".destaque{background:#F0F0F0;padding:24px 28px;border-radius:10px;margin:30px 0;font-size:18px;font-weight:700;line-height:1.4;color:#000}"
-    ".slide5{font-size:15px;font-weight:500;line-height:1.5;margin:28px 0 0 0;color:#000}"
-    "</style></head><body><div class='wrap'><div class='card'>"
-    f"<h1 class='titulo'>{p['titulo']}</h1>"
-    "<hr class='hr'>"
-    f"<div class='slide1'>{p['slide1']}</div>"
-    f"<p class='slidep'>{p['slide2']}</p>"
-    f"<p class='slidep'>{p['slide3']}</p>"
-    f"<div class='destaque'>{p['slide4']}</div>"
-    f"<p class='slide5'>{p['slide5']}</p>"
-    "</div></div></body></html>"
-)
+# --- 5 TEMPLATES DE SLIDE (1080x1080 cada, design viral) ---
 
-print(f"=== {TIPO} ===")
-print("1. Gerando imagem HCTI...")
-with open("_tmp.html", "w", encoding="utf-8") as f:
-    f.write(html)
-r = subprocess.run([
-    "curl", "-s",
-    "-u", f"{HCTI_USER}:{HCTI_KEY}",
-    "-X", "POST", "https://hcti.io/v1/image",
-    "--data-urlencode", "html@_tmp.html",
-    "--data-urlencode", "google_fonts=Poppins",
-    "--data-urlencode", "viewport_width=1080",
-    "--data-urlencode", "viewport_height=1080",
-    "--data-urlencode", "device_scale=1",
-    "--data-urlencode", "ms_delay=500",
-], capture_output=True, text=True, encoding="utf-8")
-image_url = json.loads(r.stdout)["url"]
-print(f"   URL: {image_url}")
+CSS_BASE = """
+html,body{margin:0;padding:0;background:#fff;color:#000;color-scheme:light}
+*{box-sizing:border-box;font-family:'Poppins',Arial,sans-serif}
+.wrap{width:1080px;height:1080px;display:flex;flex-direction:column;background:#fff;color:#000;padding:80px;position:relative}
+.brand{position:absolute;bottom:50px;left:80px;font-size:22px;font-weight:700;color:#000;opacity:0.55;letter-spacing:1px}
+.pageno{position:absolute;bottom:50px;right:80px;font-size:22px;font-weight:700;color:#000;opacity:0.55}
+.arrow{position:absolute;bottom:120px;right:80px;font-size:48px;color:#000;opacity:0.4}
+"""
 
-print("2. Criando container IG...")
-body = urllib.parse.urlencode({
-    "image_url": image_url,
-    "caption": p["legenda"],
-    "access_token": TOKEN,
-}, encoding="utf-8").encode("utf-8")
-req = urllib.request.Request(
+def slide_capa(titulo, hook):
+    return f"""<html><head><style>{CSS_BASE}
+.capa{{flex:1;display:flex;flex-direction:column;justify-content:center}}
+.eyebrow{{font-size:24px;font-weight:600;color:#000;opacity:0.55;text-transform:uppercase;letter-spacing:3px;margin-bottom:30px}}
+.titulo-capa{{font-size:88px;font-weight:900;line-height:1.05;color:#000;margin:0 0 40px 0;letter-spacing:-2px}}
+.hook-capa{{font-size:34px;font-weight:600;color:#000;line-height:1.3;opacity:0.85}}
+.linha{{width:100px;height:6px;background:#000;margin:40px 0}}
+</style></head><body><div class="wrap"><div class="capa">
+<div class="eyebrow">@EUSOUMICHELOLIVEIRA</div>
+<div class="titulo-capa">{titulo}</div>
+<div class="linha"></div>
+<div class="hook-capa">{hook}</div>
+</div>
+<div class="arrow">→</div>
+<div class="brand">ARRASTA →</div>
+<div class="pageno">01/05</div>
+</div></body></html>"""
+
+def slide_texto(numero, total, label, texto):
+    return f"""<html><head><style>{CSS_BASE}
+.body-slide{{flex:1;display:flex;flex-direction:column;justify-content:center}}
+.label{{font-size:24px;font-weight:700;color:#000;opacity:0.45;text-transform:uppercase;letter-spacing:3px;margin-bottom:30px}}
+.texto-slide{{font-size:50px;font-weight:700;color:#000;line-height:1.25;letter-spacing:-1px}}
+.barra{{width:60px;height:5px;background:#000;margin-bottom:30px}}
+</style></head><body><div class="wrap"><div class="body-slide">
+<div class="barra"></div>
+<div class="label">{label}</div>
+<div class="texto-slide">{texto}</div>
+</div>
+<div class="brand">@eusoumicheloliveira</div>
+<div class="pageno">{numero:02d}/{total:02d}</div>
+</div></body></html>"""
+
+def slide_destaque(numero, total, texto):
+    """Slide com fundo preto + numeros - usado pro slide 4 (exemplo R$)"""
+    return f"""<html><head><style>
+html,body{{margin:0;padding:0;background:#000;color:#fff;color-scheme:dark}}
+*{{box-sizing:border-box;font-family:'Poppins',Arial,sans-serif}}
+.wrap{{width:1080px;height:1080px;display:flex;flex-direction:column;background:#000;color:#fff;padding:80px;position:relative}}
+.body-slide{{flex:1;display:flex;flex-direction:column;justify-content:center}}
+.label{{font-size:24px;font-weight:700;color:#fff;opacity:0.6;text-transform:uppercase;letter-spacing:3px;margin-bottom:30px}}
+.texto-slide{{font-size:54px;font-weight:800;color:#fff;line-height:1.2;letter-spacing:-1px}}
+.barra{{width:80px;height:6px;background:#fff;margin-bottom:30px}}
+.brand{{position:absolute;bottom:50px;left:80px;font-size:22px;font-weight:700;color:#fff;opacity:0.55;letter-spacing:1px}}
+.pageno{{position:absolute;bottom:50px;right:80px;font-size:22px;font-weight:700;color:#fff;opacity:0.55}}
+</style></head><body><div class="wrap"><div class="body-slide">
+<div class="barra"></div>
+<div class="label">EXEMPLO REAL</div>
+<div class="texto-slide">{texto}</div>
+</div>
+<div class="brand">@eusoumicheloliveira</div>
+<div class="pageno">{numero:02d}/{total:02d}</div>
+</div></body></html>"""
+
+def slide_cta(numero, total, texto, cta):
+    return f"""<html><head><style>{CSS_BASE}
+.body-slide{{flex:1;display:flex;flex-direction:column;justify-content:center}}
+.label{{font-size:24px;font-weight:700;color:#000;opacity:0.45;text-transform:uppercase;letter-spacing:3px;margin-bottom:30px}}
+.texto-slide{{font-size:44px;font-weight:700;color:#000;line-height:1.25;letter-spacing:-1px;margin-bottom:40px}}
+.barra{{width:60px;height:5px;background:#000;margin-bottom:30px}}
+.cta-box{{background:#000;color:#fff;padding:36px 40px;border-radius:14px;font-size:30px;font-weight:700;line-height:1.3;margin-top:30px}}
+</style></head><body><div class="wrap"><div class="body-slide">
+<div class="barra"></div>
+<div class="label">AGORA E COM VOCE</div>
+<div class="texto-slide">{texto}</div>
+<div class="cta-box">{cta}</div>
+</div>
+<div class="brand">@eusoumicheloliveira</div>
+<div class="pageno">{numero:02d}/{total:02d}</div>
+</div></body></html>"""
+
+SLIDES_HTML = [
+    slide_capa(p["titulo"], p["slide1"]),
+    slide_texto(2, 5, "O CONTEXTO", p["slide2"]),
+    slide_texto(3, 5, "A VIRADA", p["slide3"]),
+    slide_destaque(4, 5, p["slide4"]),
+    slide_cta(5, 5, p["slide5"], p.get("cta", "Salva esse post.")),
+]
+
+
+def hcti_image(html, idx):
+    path = f"_slide_{idx}.html"
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(html)
+    r = subprocess.run([
+        "curl", "-s",
+        "-u", f"{HCTI_USER}:{HCTI_KEY}",
+        "-X", "POST", "https://hcti.io/v1/image",
+        "--data-urlencode", f"html@{path}",
+        "--data-urlencode", "google_fonts=Poppins",
+        "--data-urlencode", "viewport_width=1080",
+        "--data-urlencode", "viewport_height=1080",
+        "--data-urlencode", "device_scale=1",
+        "--data-urlencode", "ms_delay=500",
+    ], capture_output=True, text=True, encoding="utf-8")
+    return json.loads(r.stdout)["url"]
+
+
+def ig_post(url, params):
+    body = urllib.parse.urlencode({**params, "access_token": TOKEN}, encoding="utf-8").encode("utf-8")
+    req = urllib.request.Request(url, data=body, method="POST",
+        headers={"Content-Type": "application/x-www-form-urlencoded; charset=utf-8"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.loads(r.read().decode("utf-8"))
+
+
+print("1. Gerando 5 imagens HCTI...")
+image_urls = []
+for i, html in enumerate(SLIDES_HTML, 1):
+    url = hcti_image(html, i)
+    print(f"   slide {i}: {url}")
+    image_urls.append(url)
+
+print("2. Criando 5 containers item (IS_CAROUSEL_ITEM)...")
+child_ids = []
+for i, url in enumerate(image_urls, 1):
+    resp = ig_post(
+        f"https://graph.facebook.com/v19.0/{IG_USER_ID}/media",
+        {"image_url": url, "is_carousel_item": "true"},
+    )
+    child_ids.append(resp["id"])
+    print(f"   item {i}: {resp['id']}")
+
+print("3. Criando container do carrossel...")
+carousel = ig_post(
     f"https://graph.facebook.com/v19.0/{IG_USER_ID}/media",
-    data=body,
-    method="POST",
-    headers={"Content-Type": "application/x-www-form-urlencoded; charset=utf-8"},
+    {
+        "media_type": "CAROUSEL",
+        "children": ",".join(child_ids),
+        "caption": p["legenda"],
+    },
 )
-with urllib.request.urlopen(req, timeout=60) as r:
-    cid = json.loads(r.read().decode("utf-8"))["id"]
-print(f"   Container: {cid}")
+cid = carousel["id"]
+print(f"   carousel: {cid}")
 
-time.sleep(5)
+time.sleep(8)
 
-print("3. Publicando...")
-body = urllib.parse.urlencode({"creation_id": cid, "access_token": TOKEN}).encode("utf-8")
-req = urllib.request.Request(
-    f"https://graph.facebook.com/v19.0/{IG_USER_ID}/media_publish",
-    data=body,
-    method="POST",
-    headers={"Content-Type": "application/x-www-form-urlencoded"},
-)
-with urllib.request.urlopen(req, timeout=60) as r:
-    post_id = json.loads(r.read().decode("utf-8"))["id"]
-print(f"   POST ID: {post_id}")
-print(f"OK {TIPO} publicado: {post_id}")
+# se TEST=1, NAO publica, so deixa o container pronto
+if os.environ.get("TEST") == "1":
+    print(f"TEST mode: container pronto sem publicar. ID={cid}")
+    print("Imagens pra preview:")
+    for u in image_urls:
+        print(f"  {u}")
+else:
+    print("4. Publicando...")
+    pub = ig_post(
+        f"https://graph.facebook.com/v19.0/{IG_USER_ID}/media_publish",
+        {"creation_id": cid},
+    )
+    print(f"   POST ID: {pub['id']}")
+    print(f"OK Carrossel publicado: {pub['id']}")
