@@ -100,6 +100,86 @@ JAMAIS DIGA:
 
 QUANDO FALAR EM EXEMPLO NUMERICO, use estrutura:
 "Imovel avaliado R$ X | Lance R$ Y | + Custos (ITBI/registro/leiloeiro/desocupacao) ~12% = Investimento total R$ Z | Vende por R$ W | Lucro liquido R$ K apos IR 15%"
+
+=== IMOVEIS CAIXA - 5 MODALIDADES (FONTE: CARTILHA OFICIAL CAIXA JUN/2024) ===
+PRIORIZE conteudo sobre Imoveis Caixa - publico ama. Site oficial: caixa.gov.br/imoveiscaixa
+
+1) 1o LEILAO SFI (Lei 9.514/97 art 27):
+   - Valor minimo: garantia atualizada OU avaliacao prefeitura (o maior)
+   - Comissao leiloeiro: 5% (pago separado, NAO entra no lance)
+   - IPTU/condominio atrasado: ARREMATANTE PAGA (Caixa nao quita)
+   - Onde: site do leiloeiro (edital)
+   - Tem imobiliaria credenciada gratis (Caixa paga)
+
+2) 2o LEILAO SFI:
+   - Valor minimo: divida do contrato + despesas de consolidacao
+   - Comissao 5% pago separado
+   - IPTU/condominio: ARREMATANTE PAGA
+   - Geralmente mais barato que 1o leilao
+
+3) LICITACAO ABERTA (Lei 13.303/2017):
+   - Valor: avaliacao Caixa COM desconto
+   - Comissao 5%
+   - IPTU/condominio: CAIXA QUITA (vantagem grande!)
+   - Site do leiloeiro
+
+4) VENDA ONLINE (cronometro ativo):
+   - Direto no site da Caixa (sem leiloeiro)
+   - SEM comissao de 5%
+   - Vence a MAIOR proposta quando o cronometro zerar
+   - IPTU/condominio: CAIXA QUITA
+   - Imobiliaria credenciada gratis
+
+5) VENDA DIRETA ONLINE (cronometro zerado):
+   - Direto no site da Caixa
+   - SEM comissao
+   - Vence a PRIMEIRA proposta igual ou maior que o minimo
+   - IPTU/condominio: CAIXA QUITA
+   - Quem chegar primeiro com lance valido leva
+
+PROCESSO PRATICO:
+- Cadastro obrigatorio no portal caixa.gov.br/imoveiscaixa
+- Pagamento aceito: a vista, FINANCIAMENTO CAIXA, FGTS (depende do imovel)
+- Se for financiar: precisa APROVAR credito ANTES de registrar a proposta
+- Boleto valido 2 DIAS UTEIS apos proposta - perdeu prazo, perdeu imovel
+- Documentos: RG, CPF, comprovante residencia, estado civil, comprovante renda 2 meses, IR, simulacao
+- Apos pagar: vai a agencia Caixa, pega documentos pra escritura, registra em cartorio
+
+DIFERENCAS-CHAVE QUE PUBLICO NAO SABE:
+- Venda Online/Direta NAO TEM comissao 5% (so leilao SFI e licitacao tem)
+- Em Licitacao/Venda Online/Direta a Caixa QUITA IPTU/condominio atrasado
+- Em 1o e 2o Leilao SFI o arrematante herda IPTU/condominio
+- Pode usar FGTS!
+- Imobiliaria credenciada e GRATIS (Caixa paga, nao o comprador)
+- PJ pode comprar tambem
+
+DUVIDAS/DORES COMUNS DO PUBLICO (use como tema):
+1. "Qual diferenca entre 1o e 2o leilao SFI?"
+2. "Como funciona o financiamento Caixa pra imovel de leilao Caixa?"
+3. "Posso usar FGTS pra arrematar imovel Caixa?"
+4. "E se nao conseguir pagar o boleto em 2 dias?"
+5. "Imovel Caixa Venda Direta - como funciona o cronometro zerado?"
+6. "Vale a pena pagar leiloeiro 5% se tem Venda Online sem comissao?"
+7. "Imobiliaria credenciada Caixa cobra alguma coisa?"
+8. "O que preciso pra fazer cadastro no portal Caixa?"
+9. "Posso visitar o imovel antes de dar lance?"
+10. "Se eu desistir depois de arrematar imovel Caixa, perco o que?"
+11. "Como saber se o imovel Caixa tem ocupante (gente morando)?"
+12. "Caixa aceita lance abaixo do valor minimo de avaliacao?"
+13. "PJ pode comprar imovel Caixa?"
+14. "Quanto desconto medio do imovel Caixa em relacao ao mercado?"
+15. "Posso reformar imovel Caixa antes de quitar o financiamento?"
+16. "Imovel Caixa com matricula bloqueada - o que fazer?"
+17. "Diferenca de Caixa vs leilao Banco do Brasil/Itau/Santander"
+18. "Posso comprar imovel Caixa em outra cidade/estado?"
+19. "Tem como dar lance pelo celular?"
+20. "Quanto tempo demora pra ter a posse depois de pagar?"
+
+JAMAIS INVENTE:
+- Sites errados (so use caixa.gov.br/imoveiscaixa)
+- Lei errada (decora: SFI = 9.514/97 art 27, Licitacao = 13.303/2017 art 28 §3)
+- Comissoes erradas (Online/Direta NAO TEM 5%)
+- Prazo errado (boleto e 2 DIAS UTEIS, nao 24h, nao 5 dias)
 """
 
 PROMPTS = {
@@ -131,7 +211,7 @@ Retorne SOMENTE JSON, comecando com {{""",
 
 OBJETIVO: ensinar UM conceito tecnico de leilao em 5 slides. Salvavel = viralizavel.
 
-ESCOLHA UM TEMA dessa lista (varie a cada vez): prazo de desfazimento, calculo de lance maximo, imovel ocupado vs livre, edital - o que olhar, ITBI no leilao, sinal de 5%, fim de hipoteca, leilao judicial vs extrajudicial, divida do anterior, condominio em atraso, vistoria possivel?, financiamento direto Caixa, comissao do leiloeiro, cuidados com averbacao, prazo pra pagar, multa de 20%, recurso de arrematante, posse vs propriedade, registrar com decisao judicial, custo total real (lance + custos).
+ESCOLHA UM TEMA priorizando IMOVEIS CAIXA (60% dos posts) das 20 duvidas reais listadas no bloco CAIXA acima. Nos outros 40%, varie entre: prazo de desfazimento, calculo de lance maximo, imovel ocupado vs livre, edital - o que olhar, ITBI no leilao, sinal de 5%, fim de hipoteca, leilao judicial vs extrajudicial, divida do anterior, condominio em atraso, vistoria possivel?, comissao do leiloeiro, cuidados com averbacao, prazo pra pagar, multa de 20%, recurso de arrematante, posse vs propriedade, registrar com decisao judicial, custo total real (lance + custos).
 
 ESTRUTURA (carrossel 5 slides):
 - titulo (titulo do tema, 5-8 palavras)
