@@ -180,6 +180,110 @@ JAMAIS INVENTE:
 - Lei errada (decora: SFI = 9.514/97 art 27, Licitacao = 13.303/2017 art 28 §3)
 - Comissoes erradas (Online/Direta NAO TEM 5%)
 - Prazo errado (boleto e 2 DIAS UTEIS, nao 24h, nao 5 dias)
+
+=== REGRAS DETALHADAS VENDA ONLINE (CARTILHA OFICIAL CAIXA REGRAS DA VENDA ONLINE v19.603) ===
+VENDA ONLINE - mecanica do cronometro:
+- Imovel disponivel enquanto cronometro em contagem regressiva
+- Nos 5 MINUTOS FINAIS: proposta SUPERIOR ao maior lance PRORROGA o cronometro (anti-sniping)
+- Propostas iguais ou menores que o maior lance NAO prorrogam
+- Compra Direta: sem cronometro, vence a PRIMEIRA proposta igual ou superior ao valor minimo
+
+QUEM PODE participar:
+- Maiores de 18 anos OU emancipados (precisa comprovante de emancipacao)
+- Estrangeiros e brasileiros residentes no exterior (precisam orientacao juridica + docs traduzidos e apostilados Haia)
+- Maximo 8 proponentes por proposta (todos cadastrados)
+- Pessoa Juridica: tem que cadastrar todos os socios primeiro
+
+QUEM NAO pode:
+- Empregados Caixa de algumas areas (VILOS, DEOPE, SUOTC) com excecoes
+- Menor de idade nao emancipado
+
+LOGIN: usa SISET (Sistema Identidade Seguranca Entidades Externas) - CPF + senha. Senha pessoal e intransferivel.
+
+CADASTRO da proposta - 7 ETAPAS:
+1) Imovel selecionado (confirma ciencia)
+2) Dados do proponente e demais participantes
+3) Agencia de contratacao e Intermediacao (corretor/imobiliaria credenciada)
+4) Forma de pagamento (a vista, financiamento, FGTS)
+5) Dados bancarios (devolucao se necessario)
+6) Assessoramento Imobiliario Credenciado Caixa (Jornada Digital ou Convencional)
+7) Declaracoes e gravar proposta
+
+INTERMEDIACAO vs ASSESSORAMENTO:
+- Intermediacao = corretor/imobiliaria que VINCULA CRECI a proposta (prospectou cliente)
+- Assessoramento = quando nao tem corretor, Caixa indica credenciado randomicamente
+- AMBOS pagos pela CAIXA - cortesia ao comprador
+- Imobiliaria nunca cobra comissao do comprador
+
+=== LEILAO E LICITACAO ABERTA - REGRAS ESPECIFICAS (CARTILHA ABR/2026) ===
+BOLETO:
+- IMPRORROGAVEL - nao paga ate vencimento = desclassificacao automatica
+- Vence 2 DIAS UTEIS apos homologacao
+- Gerado pelo proprio arrematante no portal caixa.gov.br/imoveiscaixa
+- Antes de gerar tem que completar a proposta (imobiliaria, agencia, forma de pgto)
+
+COMISSAO DO LEILOEIRO:
+- 5% do valor do lance
+- Pago no DIA DA ARREMATACAO
+- NAO integra o preco do imovel (e por fora)
+- Nao pagar = desclassificacao + penalidades do edital
+
+REGRAS QUE PUBLICO IGNORA E TOMA PREJUIZO:
+- NAO PODE alterar, incluir ou excluir proponentes apos arrematacao (em leilao)
+- NAO PODE alterar proponente principal
+- NAO TEM direito de arrependimento (diferente de Venda Online/Direta)
+- DESISTENCIA = multa 5% do lance + perda da comissao paga + possivel impedimento de futuros leiloes Caixa
+
+RESPONSABILIDADE EXCLUSIVA DO ARREMATANTE:
+- IPTU e condominio em atraso (salvo se edital diz contrario expressamente)
+- Desocupacao (acao judicial ou extrajudicial) - Caixa nao desocupa
+- Cadastro previo no portal
+- Geracao do boleto recursos proprios
+- Analise juridica previa (penhoras, acoes judiciais que podem nao estar no edital)
+- Aprovacao previa do credito se for financiar (com CCA ou agencia)
+
+IMPORTANTE: o imovel e vendido "no estado em que se encontra" (fisico, documental e de ocupacao). SEM direito a abatimento, indenizacao ou revisao de preco.
+
+PROCESSO DE ARREMATACAO:
+- Cadastro no SITE DO LEILOEIRO (pra dar lance) E no portal Caixa (pra completar proposta + boleto)
+- Apos arrematacao: leiloeiro fornece Termo de Arrematacao, Ata, Publicacao no DOU
+- Licitacao Aberta: cliente gera proposta na area logada do portal Caixa
+
+APROVACAO DE CREDITO PRA FINANCIAR:
+- Tem que ser PREVIA (antes de arrematar)
+- Feita em CCA (Correspondente Caixa) ou agencia Caixa
+- Sem aprovacao previa = nao consegue financiar = nao consegue arrematar com financiamento
+
+DOCUMENTOS pra fechar a compra:
+- Proposta + boleto impressos
+- Comprovante de pagamento
+- RG / CPF
+- Comprovante de residencia
+- Comprovante de estado civil e regime de bens
+- Comprovante de renda 2 meses
+- Declaracao IR
+- Simulacao da operacao (financiamento)
+
+ASSESSORAMENTO DIGITAL vs CONVENCIONAL:
+- Digital: tramitacao documental sem documento fisico (mais rapido)
+- Convencional: tradicional, com docs fisicos
+- Algumas UF nao tem credenciado pra Digital
+
+CONFERIR NO EDITAL:
+- Dados oficiais do leiloeiro (seguranca)
+- Quem paga IPTU/condominio
+- Penhoras e onus
+- Estado de ocupacao
+- Forma e prazo de pagamento
+
+NUMEROS PRA USAR EM POSTS (verdade absoluta):
+- Multa desistencia Leilao Caixa: 5% (nao 20% como em leilao judicial extrajudicial generico)
+- Comissao leiloeiro Caixa: 5% por fora
+- Boleto: 2 dias uteis
+- Maximo proponentes: 8
+- 5 modalidades: 1o Leilao SFI, 2o Leilao SFI, Licitacao Aberta, Venda Online, Compra Direta
+- 7 etapas pra cadastrar proposta de Venda Online
+- Cronometro Venda Online prorroga em propostas superiores nos ultimos 5min
 """
 
 PROMPTS = {
