@@ -4,6 +4,7 @@ Salva: conteudo.json (1 conteudo so) + atualiza ganchos_usados.json
 """
 import json
 import os
+import re
 import sys
 import urllib.request
 
@@ -78,8 +79,27 @@ REGRAS LEGAIS:
 - Carta de arrematacao = documento que comprova propriedade (sai em 30-60 dias)
 - Prazo de pagamento: 24h apos arremate (extrajudicial) ou 15 dias (judicial)
 - Sinal: 5% no ato, restante em ate 24h (extrajudicial)
-- Multa por desistencia: 20% do lance + perda do sinal
+- Multa por desistencia (LEILAO JUDICIAL generico, NAO Caixa): 20% do lance + perda do sinal
 - Imovel ocupado: arrematante assume a desocupacao
+
+================ MULTA POR MODALIDADE (REGRA CRITICA - NUNCA ERRAR) ================
+ANTES de afirmar QUALQUER multa/penalidade num post, confira EXATAMENTE a modalidade:
+
+1) LEILAO SFI (1o e 2o Leilao) e LICITACAO ABERTA (extrajudicial Caixa):
+   - TEM multa por desistencia = 5% do lance + perda da comissao paga ao leiloeiro
+   - Pode haver impedimento de participar de futuros leiloes Caixa
+   - NAO TEM direito de arrependimento
+2) VENDA ONLINE (Caixa):
+   - Segue Regras da Venda Online. Confirmar no documento antes de citar valor de multa.
+   - NAO afirmar "multa de 20%" - isso e leilao judicial, NAO Caixa.
+3) COMPRA DIRETA / VENDA DIRETA (Lei 13.303/2016):
+   - Regras proprias. NAO assumir a mesma multa do leilao SFI.
+4) LEILAO JUDICIAL (fora Caixa):
+   - Multa pode chegar a 20% do lance + perda do sinal (CPC). NUNCA misturar com Caixa.
+
+REGRA: o numero "20%" NUNCA pode aparecer associado a imovel CAIXA. Caixa = 5%.
+Se nao tiver certeza da multa daquela modalidade especifica, NAO cite numero de multa no post.
+====================================================================================
 - Hipoteca: extinta automaticamente apos arrematacao (Lei 9.514)
 - Penhora trabalhista: NAO se extingue, herdada pelo arrematante (CUIDADO)
 - IPVA/multas: irrelevante (so imovel, nao veiculo)
@@ -325,7 +345,7 @@ FORMATO OBRIGATORIO: retorne SOMENTE um JSON PLANO (sem envelopar em "slides" ou
 
 OBJETIVO: ensinar UM conceito tecnico de leilao em 5 slides. Salvavel = viralizavel.
 
-ESCOLHA UM TEMA priorizando IMOVEIS CAIXA (60% dos posts) das 20 duvidas reais listadas no bloco CAIXA acima. Nos outros 40%, varie entre: prazo de desfazimento, calculo de lance maximo, imovel ocupado vs livre, edital - o que olhar, ITBI no leilao, sinal de 5%, fim de hipoteca, leilao judicial vs extrajudicial, divida do anterior, condominio em atraso, vistoria possivel?, comissao do leiloeiro, cuidados com averbacao, prazo pra pagar, multa de 20%, recurso de arrematante, posse vs propriedade, registrar com decisao judicial, custo total real (lance + custos).
+ESCOLHA UM TEMA priorizando IMOVEIS CAIXA (60% dos posts) das 20 duvidas reais listadas no bloco CAIXA acima. Nos outros 40%, varie entre: prazo de desfazimento, calculo de lance maximo, imovel ocupado vs livre, edital - o que olhar, ITBI no leilao, sinal de 5%, fim de hipoteca, leilao judicial vs extrajudicial, divida do anterior, condominio em atraso, vistoria possivel?, comissao do leiloeiro, cuidados com averbacao, prazo pra pagar, multa de desistencia (5% no Caixa - conferir modalidade), recurso de arrematante, posse vs propriedade, registrar com decisao judicial, custo total real (lance + custos).
 
 ESTRUTURA (carrossel 5 slides):
 - titulo (titulo do tema, 5-8 palavras)
@@ -484,6 +504,23 @@ for campo in ["titulo", "slide1", "slide2", "slide3", "slide4", "slide5", "legen
     if not data.get(campo):
         print("ESTRUTURA RETORNADA:", json.dumps(data, ensure_ascii=False)[:1500])
         raise AssertionError(f"Campo vazio: {campo}")
+
+# REGRA HASHTAG: hashtags SO na legenda. Remove de todos os campos de imagem.
+def _strip_hashtags(txt):
+    if not isinstance(txt, str):
+        return txt
+    # remove tokens #palavra (com acentos) e limpa espacos/sobras
+    limpo = re.sub(r"#\S+", "", txt)
+    limpo = re.sub(r"[ \t]{2,}", " ", limpo)
+    limpo = re.sub(r"\n{3,}", "\n\n", limpo)
+    return limpo.strip()
+
+for campo in ["titulo", "slide1", "slide2", "slide3", "slide4", "slide5", "cta"]:
+    if data.get(campo):
+        antes = data[campo]
+        data[campo] = _strip_hashtags(antes)
+        if antes != data[campo]:
+            print(f"  [limpeza] hashtags removidas de {campo}")
 
 with open("conteudo.json", "w", encoding="utf-8") as f:
     json.dump(data, f, ensure_ascii=False, indent=2)
