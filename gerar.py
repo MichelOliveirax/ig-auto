@@ -254,6 +254,16 @@ APROVACAO DE CREDITO PRA FINANCIAR:
 - Feita em CCA (Correspondente Caixa) ou agencia Caixa
 - Sem aprovacao previa = nao consegue financiar = nao consegue arrematar com financiamento
 
+REGRA DE OURO DO FINANCIAMENTO CAIXA EM LEILAO (PERGUNTA TOP DO PUBLICO):
+- ENTRADA MINIMA em imovel de LEILAO/LICITACAO Caixa = 5% do valor
+- ENTRADA MINIMA em financiamento TRADICIONAL fora de leilao = 20%
+- ISSO E UMA VANTAGEM ENORME do leilao Caixa: precisa de muito menos dinheiro na entrada
+- Exemplo: imovel R$ 300mil arrematado. Entrada minima = R$ 15mil (5%). Financia R$ 285mil
+- Comparacao: mesmo imovel comprado tradicional precisaria R$ 60mil (20%) de entrada
+- Restante pode ser financiado em ate 420 meses (35 anos) via SBPE ou SFH
+- Pode usar FGTS como parte da entrada ou pra amortizar
+- NUNCA confundir: a comissao do leiloeiro (5%) NAO entra como entrada - e custo extra por fora
+
 DOCUMENTOS pra fechar a compra:
 - Proposta + boleto impressos
 - Comprovante de pagamento
