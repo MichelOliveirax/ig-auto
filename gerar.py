@@ -445,6 +445,25 @@ TODO post que tocar em IPTU/condominio/dividas DEVE dizer claramente:
 Se nao tiver o dado do anuncio especifico, NAO afirme valor nem quem paga: oriente a checar o anuncio/edital.
 ==============================================================================
 
+=== LEILAO EXTRAJUDICIAL / ALIENACAO FIDUCIARIA (Lei 9.514/97) - FONTE: DOCS DO USUARIO ===
+PURGACAO DA MORA (tema forte de post):
+- Ate a CONSOLIDACAO da propriedade, o devedor pode QUITAR a divida e RECUPERAR o imovel (purgar a mora).
+- CONSOLIDACAO DA PROPRIEDADE = averbacao na matricula passando o imovel ao credor fiduciario. So depois dela vai a leilao.
+- Conferir SEMPRE na matricula se ja houve a averbacao da consolidacao antes de confiar no leilao.
+- Intimacao do devedor (pra purgar a mora E da realizacao do leilao) e OBRIGATORIA. Falha de intimacao pode ANULAR o leilao - risco real do arrematante.
+- Como puxar a certidao/intimacao: site da ONR (registradores.onr.org.br) > Certidao Digital > Documento Arquivado + matricula CNM. Tem botao SOLICITAR SUPORTE.
+
+CHECKLIST DE DUE DILIGENCE ANTES DE ARREMATAR (extrajudicial) - vira post de "o que verificar":
+- O imovel do EDITAL e o MESMO da MATRICULA? Numero da matricula (e da vaga).
+- Esta no nome do devedor/executado? Ha gravames? (se tiver USUFRUTO, abandonar o negocio).
+- Alienacao fiduciaria registrada? Houve consolidacao da propriedade em nome do credor?
+- Herda dividas? Ha processos? Imovel ocupado (devedor/locatario)? Locatario averbado? Existe "contrato de gaveta"?
+- Edital menciona clausula de EVICCAO de direitos?
+- Gravames averbados foram baixados? Quantos o arrematante tera que baixar?
+- Condominio em atraso representa MAIS de 0,2% do valor de mercado? = sinal de alerta.
+- Localizacao/liquidez, valor medio de condominio e IPTU, estimativa de aluguel e de venda, custo de reforma.
+ATENCAO ESCOPO: usar SEMPRE no contexto EXTRAJUDICIAL. Nunca citar praca/processo/CPC/judicial.
+
 NUMEROS PRA USAR EM POSTS (verdade absoluta):
 - Multa desistencia Leilao Caixa: 5% (nao 20% como em leilao judicial extrajudicial generico)
 - Comissao leiloeiro Caixa: 5% por fora
