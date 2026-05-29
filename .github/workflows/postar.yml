@@ -16,6 +16,10 @@ on:
         description: 'TEST mode (nao publica)'
         required: false
         default: 'false'
+      tema:
+        description: 'Tema forcado (opcional - assunto exato do post)'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -70,6 +74,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
           FB_TOKEN: ${{ secrets.FB_TOKEN }}
+          TEMA_FORCADO: ${{ github.event.inputs.tema }}
         run: python gerar.py ${{ steps.tipo.outputs.tipo }}
 
       - name: Instalar Playwright

@@ -578,7 +578,20 @@ estilo = random.choice(ESTILOS_GANCHO)
 prompt = PROMPTS[TIPO].format(
     estilo=estilo,
     ganchos_usados=json.dumps(ganchos_usados[-10:], ensure_ascii=False),
-) + "\n\n" + CONHECIMENTO_TECNICO + """
+) + "\n\n" + CONHECIMENTO_TECNICO
+
+# TEMA FORCADO (opcional): permite definir o assunto exato do post
+TEMA_FORCADO = os.environ.get("TEMA_FORCADO", "").strip()
+if TEMA_FORCADO:
+    prompt += f"""
+
+================ TEMA OBRIGATORIO DESTE POST ================
+O assunto DESTE post DEVE ser: {TEMA_FORCADO}
+Ignore a escolha livre de tema e desenvolva EXATAMENTE esse assunto, sempre no contexto
+EXTRAJUDICIAL CAIXA, com linguagem clara e dados corretos da base acima.
+============================================================"""
+
+prompt += """
 
 RESPEITE 100% as verdades tecnicas acima. Se o post mencionar custos, calcular ROI, ou citar leis, USE os numeros e regras dessa base. Errar = perder credibilidade do perfil.
 
