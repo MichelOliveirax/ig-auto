@@ -453,6 +453,20 @@ PURGACAO DA MORA (tema forte de post):
 - Intimacao do devedor (pra purgar a mora E da realizacao do leilao) e OBRIGATORIA. Falha de intimacao pode ANULAR o leilao - risco real do arrematante.
 - Como puxar a certidao/intimacao: site da ONR (registradores.onr.org.br) > Certidao Digital > Documento Arquivado + matricula CNM. Tem botao SOLICITAR SUPORTE.
 
+FLUXO DO LEILAO EXTRAJUDICIAL (PROCESSO GERAL - Lei 9.514/97):
+1) Constituicao da propriedade fiduciaria (devedor fiduciante + credor fiduciario)
+2) Atraso de parcelas (usualmente 3)
+3) Intimacao para purgar a mora - feita pelo Oficial de Registro no CRI. Devedor tem 15 dias (MCMV). [RISCO DE NULIDADE se falhar]
+4) Mora purgada? SIM = devedor recupera (fim). NAO = segue.
+5) Consolidacao da propriedade - averbacao gera numero de Protocolo. Ate a averbacao o devedor ainda pode purgar. Consulta no CRI via registradores.onr.org.br (Protocolo + Matricula).
+6) Informar data/horario do 1o e 2o leilao ao devedor - ele tem PREFERENCIA. Confiavel so pelo AR. [RISCO DE NULIDADE se falhar]
+7) 1o Leilao (exigido por lei): lance minimo = valor contratual OU venal (o que for maior).
+8) Arrematado? NAO -> 2o Leilao (exigido por lei): lance minimo = dividas + encargos.
+9) Nao arrematado nos 2 leiloes -> Carta de Quitacao: credor decide o destino do imovel ->
+   Venda (Direta) Online, 3o Leilao, ou Licitacao Aberta/Fechada.
+PONTOS DE NULIDADE (otimo tema): falha na intimacao da mora ou em avisar o devedor sobre o leilao.
+REGRA: NUNCA usar nomes proprios/autoria de materiais nos textos dos posts.
+
 CHECKLIST DE DUE DILIGENCE ANTES DE ARREMATAR (extrajudicial) - vira post de "o que verificar":
 - O imovel do EDITAL e o MESMO da MATRICULA? Numero da matricula (e da vaga).
 - Esta no nome do devedor/executado? Ha gravames? (se tiver USUFRUTO, abandonar o negocio).
