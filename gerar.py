@@ -223,21 +223,21 @@ PRIORIZE conteudo sobre Imoveis Caixa - publico ama. Site oficial: caixa.gov.br/
 3) LICITACAO ABERTA (Lei 13.303/2017):
    - Valor: avaliacao Caixa COM desconto
    - Comissao 5%
-   - IPTU/condominio: CAIXA QUITA (vantagem grande!)
+   - IPTU/condominio atrasado: DEPENDE DO ANUNCIO/EDITAL. A Caixa NAO esta quitando IPTU. NUNCA afirme que a Caixa paga - mande consultar o anuncio do imovel e o edital.
    - Site do leiloeiro
 
 4) VENDA ONLINE (cronometro ativo):
    - Direto no site da Caixa (sem leiloeiro)
    - SEM comissao de 5%
    - Vence a MAIOR proposta quando o cronometro zerar
-   - IPTU/condominio: CAIXA QUITA
+   - IPTU/condominio atrasado: DEPENDE DO ANUNCIO do imovel. NUNCA afirme que a Caixa quita - cada anuncio diz quem paga. Mande sempre consultar o anuncio.
    - Imobiliaria credenciada gratis
 
 5) VENDA DIRETA ONLINE (cronometro zerado):
    - Direto no site da Caixa
    - SEM comissao
    - Vence a PRIMEIRA proposta igual ou maior que o minimo
-   - IPTU/condominio: CAIXA QUITA
+   - IPTU/condominio atrasado: DEPENDE DO ANUNCIO do imovel. NUNCA afirme que a Caixa paga - consultar o anuncio.
    - Quem chegar primeiro com lance valido leva
 
 PROCESSO PRATICO:
@@ -250,8 +250,9 @@ PROCESSO PRATICO:
 
 DIFERENCAS-CHAVE QUE PUBLICO NAO SABE:
 - Venda Online/Direta NAO TEM comissao 5% (so leilao SFI e licitacao tem)
-- Em Licitacao/Venda Online/Direta a Caixa QUITA IPTU/condominio atrasado
-- Em 1o e 2o Leilao SFI o arrematante herda IPTU/condominio
+- IPTU/condominio atrasado: NUNCA garanta que a Caixa paga. A Caixa NAO esta quitando IPTU.
+  Em Licitacao Aberta, Venda Online e Compra/Venda Direta DEPENDE DO ANUNCIO do imovel.
+  Em 1o e 2o Leilao SFI o arrematante herda. REGRA: sempre mandar consultar o ANUNCIO e o EDITAL.
 - Pode usar FGTS!
 - Imobiliaria credenciada e GRATIS (Caixa paga, nao o comprador)
 - PJ pode comprar tambem
@@ -388,6 +389,16 @@ CONFERIR NO EDITAL:
 - Penhoras e onus
 - Estado de ocupacao
 - Forma e prazo de pagamento
+
+================ REGRA CRITICA SOBRE IPTU/CONDOMINIO ATRASADO ================
+NUNCA, EM HIPOTESE ALGUMA, afirme que "a Caixa paga/quita o IPTU" ou o condominio atrasado.
+A Caixa NAO esta pagando IPTU. Quem paga DEPENDE de cada imovel:
+- 1o e 2o Leilao SFI: regra geral o ARREMATANTE assume - confirmar no edital.
+- Licitacao Aberta, Venda Online e Compra/Venda Direta: DEPENDE DO ANUNCIO do imovel.
+TODO post que tocar em IPTU/condominio/dividas DEVE dizer claramente:
+"Consulte SEMPRE o anuncio do imovel e o edital pra saber quem paga - nao existe regra unica."
+Se nao tiver o dado do anuncio especifico, NAO afirme valor nem quem paga: oriente a checar o anuncio/edital.
+==============================================================================
 
 NUMEROS PRA USAR EM POSTS (verdade absoluta):
 - Multa desistencia Leilao Caixa: 5% (nao 20% como em leilao judicial extrajudicial generico)
