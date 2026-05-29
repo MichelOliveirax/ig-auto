@@ -13,7 +13,7 @@ assert TIPO in ("MENTALIDADE", "CONTEUDO", "CTA", "CASE"), f"Tipo invalido: {TIP
 
 ANTHROPIC_KEY = os.environ["ANTHROPIC_API_KEY"]
 
-# carrega ganchos ja usados (ultimos 10) pra forcar variacao
+# carrega ganchos ja usados pra forcar variacao
 HOOKS_FILE = "ganchos_usados.json"
 ganchos_usados = []
 if os.path.exists(HOOKS_FILE):
@@ -21,6 +21,44 @@ if os.path.exists(HOOKS_FILE):
         ganchos_usados = json.load(open(HOOKS_FILE, encoding="utf-8"))
     except Exception:
         ganchos_usados = []
+
+# historico rico (titulo + gancho) dos ultimos posts pra evitar conteudo repetido
+HIST_FILE = "historico_posts.json"
+historico = []
+if os.path.exists(HIST_FILE):
+    try:
+        historico = json.load(open(HIST_FILE, encoding="utf-8"))
+    except Exception:
+        historico = []
+
+titulos_recentes = [h.get("titulo", "") for h in historico if h.get("titulo")][-30:]
+
+
+def _palavras(s):
+    """tokens significativos (>3 letras) em minusculo pra comparar similaridade."""
+    s = (s or "").lower()
+    s = re.sub(r"[^0-9a-zà-ÿ ]", " ", s)
+    stop = {"para", "como", "esse", "essa", "isso", "voce", "seu", "sua", "que",
+            "com", "uma", "dos", "das", "por", "mais", "imovel", "imoveis",
+            "leilao", "caixa", "arrematar", "arrematacao"}
+    return {w for w in s.split() if len(w) > 3 and w not in stop}
+
+
+def _similaridade(a, b):
+    sa, sb = _palavras(a), _palavras(b)
+    if not sa or not sb:
+        return 0.0
+    return len(sa & sb) / len(sa | sb)
+
+
+def _e_repetido(titulo, slide1):
+    """True se titulo OU gancho forem parecidos demais com algo ja postado."""
+    for h in historico:
+        if _similaridade(titulo, h.get("titulo", "")) >= 0.5:
+            return True, h.get("titulo", "")
+        if _similaridade(slide1, h.get("slide1", "")) >= 0.55:
+            return True, h.get("slide1", "")
+    return False, None
 
 # 30 estilos de gancho para Claude escolher (rotaciona)
 ESTILOS_GANCHO = [
@@ -424,90 +462,113 @@ NUNCA, JAMAIS, EM HIPOTESE ALGUMA coloque hashtags (#palavra) nos campos slide1,
 
 REGRA DE ORTOGRAFIA OBRIGATORIA:
 Este prompt esta escrito SEM acentos para evitar problemas tecnicos, MAS seu OUTPUT deve SEMPRE usar a ortografia normal do portugues brasileiro COM TODOS OS ACENTOS: a (á à ã â), e (é ê), i (í), o (ó ô õ), u (ú), c (ç).
-Exemplos do que ESCREVER no output: "imóvel" (não "imovel"), "não" (não "nao"), "você" (não "voce"), "está" (não "esta"), "também" (não "tambem"), "será" (não "sera"), "leilão" (não "leilao"), "extrajudicial", "judicial", "ARREMATAÇÃO" maiusculo com cedilha tambem.
-Se escrever sem acentos, o post fica feio e amador."""
+Exemplos do que ESCREVER no output: "imóvel" (não "imovel"), "não" (não "nao"), "você" (não "voce"), "está" (não "esta"), "também" (não "tambem"), "será" (não "sera"), "leilão" (não "leilao"), "extrajudicial", "ARREMATAÇÃO" maiusculo com cedilha tambem.
+Se escrever sem acentos, o post fica feio e amador.
 
-body = json.dumps({
-    "model": "claude-sonnet-4-5",
-    "max_tokens": 4500,
-    "messages": [{"role": "user", "content": prompt}],
-}).encode("utf-8")
+================ REGRA ANTI-REPETICAO (CRITICA) ================
+PROIBIDO repetir conteudo. NAO use nenhum tema, titulo ou angulo parecido com os posts JA PUBLICADOS abaixo.
+Traga um tema/angulo DIFERENTE e original. Se o tema natural ja foi usado, escolha outro.
+TITULOS JA PUBLICADOS (nao repita nem reformule):
+""" + json.dumps(titulos_recentes, ensure_ascii=False) + """
+==============================================================="""
 
-req = urllib.request.Request(
-    "https://api.anthropic.com/v1/messages",
-    data=body,
-    headers={
-        "x-api-key": ANTHROPIC_KEY,
-        "anthropic-version": "2023-06-01",
-        "content-type": "application/json",
-    },
-)
-with urllib.request.urlopen(req, timeout=120) as r:
-    resp = json.loads(r.read().decode("utf-8"))
 
-texto = resp["content"][0]["text"].strip()
-# remove cercas markdown se houver
-if "```" in texto:
-    parts = texto.split("```")
-    for part in parts:
-        if part.strip().startswith("{") or part.strip().startswith("json"):
-            texto = part.strip()
-            if texto.startswith("json"):
-                texto = texto[4:].strip()
-            break
+def chamar_claude(prompt_txt):
+    body = json.dumps({
+        "model": "claude-sonnet-4-5",
+        "max_tokens": 4500,
+        "messages": [{"role": "user", "content": prompt_txt}],
+    }).encode("utf-8")
+    req = urllib.request.Request(
+        "https://api.anthropic.com/v1/messages",
+        data=body,
+        headers={
+            "x-api-key": ANTHROPIC_KEY,
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+        },
+    )
+    with urllib.request.urlopen(req, timeout=120) as r:
+        resp = json.loads(r.read().decode("utf-8"))
 
-# acha o primeiro { e percorre contando chaves pra pegar JSON balanceado
-start = texto.find("{")
-if start < 0:
-    print("RESPOSTA CLAUDE:", texto[:2000])
-    raise RuntimeError("Nao encontrou { na resposta")
-depth = 0
-end = -1
-in_string = False
-escape = False
-for i in range(start, len(texto)):
-    c = texto[i]
-    if escape:
-        escape = False
-        continue
-    if c == "\\":
-        escape = True
-        continue
-    if c == '"':
-        in_string = not in_string
-        continue
-    if in_string:
-        continue
-    if c == "{":
-        depth += 1
-    elif c == "}":
-        depth -= 1
-        if depth == 0:
-            end = i
-            break
-if end < 0:
-    print("RESPOSTA CLAUDE:", texto[:2000])
-    raise RuntimeError("JSON nao balanceado")
-try:
-    data = json.loads(texto[start:end+1])
-except json.JSONDecodeError as e:
-    print("JSON malformado:", e)
-    print("EXTRAIDO:", texto[start:end+1][:2000])
-    raise
+    texto = resp["content"][0]["text"].strip()
+    if "```" in texto:
+        parts = texto.split("```")
+        for part in parts:
+            if part.strip().startswith("{") or part.strip().startswith("json"):
+                texto = part.strip()
+                if texto.startswith("json"):
+                    texto = texto[4:].strip()
+                break
 
-# achata estruturas aninhadas (Claude as vezes envelopa em "slides" ou similar)
-if "slides" in data and isinstance(data["slides"], dict):
-    legenda = data.get("legenda")
-    cta = data.get("cta")
-    tema = data.get("tema") or data.get("titulo")
-    data = {**data["slides"]}
-    if legenda: data["legenda"] = legenda
-    if cta: data["cta"] = cta
-    if tema and not data.get("titulo"): data["titulo"] = tema
+    start = texto.find("{")
+    if start < 0:
+        print("RESPOSTA CLAUDE:", texto[:2000])
+        raise RuntimeError("Nao encontrou { na resposta")
+    depth = 0
+    end = -1
+    in_string = False
+    escape = False
+    for i in range(start, len(texto)):
+        c = texto[i]
+        if escape:
+            escape = False
+            continue
+        if c == "\\":
+            escape = True
+            continue
+        if c == '"':
+            in_string = not in_string
+            continue
+        if in_string:
+            continue
+        if c == "{":
+            depth += 1
+        elif c == "}":
+            depth -= 1
+            if depth == 0:
+                end = i
+                break
+    if end < 0:
+        print("RESPOSTA CLAUDE:", texto[:2000])
+        raise RuntimeError("JSON nao balanceado")
+    try:
+        d = json.loads(texto[start:end+1])
+    except json.JSONDecodeError as e:
+        print("JSON malformado:", e)
+        print("EXTRAIDO:", texto[start:end+1][:2000])
+        raise
 
-# Claude as vezes usa "tema" no lugar de "titulo"
-if not data.get("titulo") and data.get("tema"):
-    data["titulo"] = data["tema"]
+    # achata estruturas aninhadas (Claude as vezes envelopa em "slides")
+    if "slides" in d and isinstance(d["slides"], dict):
+        legenda = d.get("legenda")
+        cta = d.get("cta")
+        tema = d.get("tema") or d.get("titulo")
+        d = {**d["slides"]}
+        if legenda: d["legenda"] = legenda
+        if cta: d["cta"] = cta
+        if tema and not d.get("titulo"): d["titulo"] = tema
+    if not d.get("titulo") and d.get("tema"):
+        d["titulo"] = d["tema"]
+    return d
+
+
+# Gera com regeneracao automatica se vier repetido
+data = None
+for tentativa in range(1, 6):
+    prompt_txt = prompt
+    if tentativa > 1:
+        prompt_txt += (
+            "\n\nATENCAO: a tentativa anterior ficou PARECIDA DEMAIS com um post ja publicado."
+            " Mude COMPLETAMENTE de tema e de angulo. Escolha um assunto que NAO esta na lista de titulos ja publicados."
+        )
+    data = chamar_claude(prompt_txt)
+    repetido, parecido_com = _e_repetido(data.get("titulo", ""), data.get("slide1", ""))
+    if not repetido:
+        break
+    print(f"  [anti-repeticao] tentativa {tentativa}: parecido com '{parecido_com[:60]}' - regenerando...")
+else:
+    print("  [anti-repeticao] AVISO: nao consegui conteudo 100% inedito em 5 tentativas; usando o ultimo.")
 
 for campo in ["titulo", "slide1", "slide2", "slide3", "slide4", "slide5", "legenda"]:
     if not data.get(campo):
@@ -539,6 +600,16 @@ ganchos_usados.append(data["slide1"])
 ganchos_usados = ganchos_usados[-30:]  # mantem ultimos 30
 with open(HOOKS_FILE, "w", encoding="utf-8") as f:
     json.dump(ganchos_usados, f, ensure_ascii=False, indent=2)
+
+# salva histirico rico (titulo + gancho) pra anti-repeticao robusta
+historico.append({
+    "tipo": TIPO,
+    "titulo": data["titulo"],
+    "slide1": data["slide1"],
+})
+historico = historico[-60:]  # mantem ultimos 60 posts
+with open(HIST_FILE, "w", encoding="utf-8") as f:
+    json.dump(historico, f, ensure_ascii=False, indent=2)
 
 print(f"Conteudo {TIPO} gerado:")
 print(f"  Titulo: {data['titulo']}")

@@ -58,6 +58,13 @@ jobs:
           key: ganchos-${{ github.run_id }}
           restore-keys: ganchos-
 
+      - name: Restaurar historico de posts (anti-repeticao)
+        uses: actions/cache@v4
+        with:
+          path: historico_posts.json
+          key: historico-${{ github.run_id }}
+          restore-keys: historico-
+
       - name: Gerar conteudo
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
