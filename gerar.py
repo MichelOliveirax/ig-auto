@@ -98,22 +98,25 @@ TOKENS_TEMA = {
 
 # TRAVA JUDICIAL: REGRA ABSOLUTA - nenhum post pode falar de leilao judicial.
 TERMOS_JUDICIAL = [
-    "judicial", "judiciais", "praca", "praça", "1a praca", "2a praca",
+    "judicial", "judiciais", "judicialmente", "praca", "praça",
     "hasta publica", "hasta pública", "cpc", "codigo de processo civil",
     "vara civel", "vara cível", "execucao fiscal", "execução fiscal",
     "penhora judicial", "leilao do juiz", "leilão do juiz", "edital do juiz",
+    "juiz", "juíz", "juiza", "juíza", "magistrado",
+    "tribunal", "processo judicial", "acao judicial", "ação judicial",
 ]
 
 
 def _tem_judicial(data):
-    """Retorna o termo judicial encontrado em qualquer campo, ou None."""
+    """Retorna o termo judicial encontrado em qualquer campo, ou None.
+    Usa fronteira de palavra (\\b) pra nao dar falso positivo (ex: 'prejuizo' nao casa 'juiz')."""
     texto = " ".join(str(data.get(c, "")) for c in
                       ["titulo", "slide1", "slide2", "slide3", "slide4", "slide5", "legenda", "cta"])
     texto = texto.lower()
     # remove "extrajudicial"/"extrajudiciais" pra nao dar falso positivo com "judicial"
     texto = texto.replace("extrajudiciais", " ").replace("extrajudicial", " ")
     for termo in TERMOS_JUDICIAL:
-        if termo in texto:
+        if re.search(r"\b" + re.escape(termo) + r"\b", texto):
             return termo
     return None
 
