@@ -31,7 +31,43 @@ if os.path.exists(HIST_FILE):
     except Exception:
         historico = []
 
-titulos_recentes = [h.get("titulo", "") for h in historico if h.get("titulo")][-30:]
+# VERIFICA DIRETO NO INSTAGRAM: puxa legendas dos ultimos posts reais da conta
+# pra detectar repeticao mesmo de posts feitos antes do historico local existir.
+def buscar_posts_instagram():
+    ig_id = os.environ.get("IG_USER_ID")
+    token = os.environ.get("FB_TOKEN")
+    if not ig_id or not token:
+        print("  [instagram] IG_USER_ID/FB_TOKEN ausentes - pulando verificacao no IG")
+        return []
+    try:
+        url = (
+            f"https://graph.facebook.com/v19.0/{ig_id}/media"
+            f"?fields=caption,timestamp&limit=50&access_token={token}"
+        )
+        with urllib.request.urlopen(url, timeout=30) as r:
+            dados = json.loads(r.read().decode("utf-8"))
+        posts = []
+        for item in dados.get("data", []):
+            cap = (item.get("caption") or "").strip()
+            if not cap:
+                continue
+            # remove hashtags pra comparar so o conteudo
+            cap_limpo = re.sub(r"#\S+", "", cap).strip()
+            primeira_linha = cap_limpo.split("\n")[0].strip()
+            posts.append({"titulo": primeira_linha, "slide1": cap_limpo[:200]})
+        print(f"  [instagram] {len(posts)} posts reais carregados da conta pra comparacao")
+        return posts
+    except Exception as e:
+        print(f"  [instagram] falha ao buscar posts (seguindo com historico local): {e}")
+        return []
+
+
+# historico_local = o que persiste no arquivo. historico = usado so pra comparar (local + IG)
+historico_local = list(historico)
+posts_ig = buscar_posts_instagram()
+historico = historico + posts_ig
+
+titulos_recentes = [h.get("titulo", "") for h in historico if h.get("titulo")][-50:]
 
 
 def _palavras(s):
@@ -470,7 +506,19 @@ PROIBIDO repetir conteudo. NAO use nenhum tema, titulo ou angulo parecido com os
 Traga um tema/angulo DIFERENTE e original. Se o tema natural ja foi usado, escolha outro.
 TITULOS JA PUBLICADOS (nao repita nem reformule):
 """ + json.dumps(titulos_recentes, ensure_ascii=False) + """
-==============================================================="""
+===============================================================
+
+================ REGRA DE VIRALIZACAO E ENGAJAMENTO (OBJETIVO: COMENTARIOS + VENDAS) ================
+O objetivo de CADA post e gerar COMENTARIOS, SALVAMENTOS e levar a VENDA do curso. Aplique:
+1. GANCHO (slide1) precisa parar o scroll em 1 segundo: numero forte, pergunta polemica, ou afirmacao que contraria o senso comum. Nada de comeco morno.
+2. CURIOSITY GAP: o slide1 promete uma resposta que so se completa nos slides seguintes. Faz a pessoa arrastar.
+3. COMENTARIO PROVOCADO: o slide5 SEMPRE termina com uma pergunta facil de responder OU uma palavra-chave pra comentar (ex: "Comenta CARTILHA que eu te mando o passo a passo"). Pergunta tem que ser de resposta rapida (sim/nao, qual cidade, quanto voce acha), nao dissertativa.
+4. legenda: 1a linha forte (repete/expande o gancho), texto escaneavel em paragrafos curtos com emojis, e FECHA com: pergunta de engajamento + chamada pra comentar uma palavra-chave + so depois as 8 hashtags.
+5. VENDA SUTIL: conecte o conteudo a transformacao que o curso "Arremate em 30 Dias" entrega. Sem ser apelativo: mostre que existe um caminho/metodo e convide (link na bio / comenta EU QUERO). Em MENTALIDADE e CONTEUDO a venda e leve; em CTA e direta.
+6. PROVA E ESPECIFICIDADE: use numeros reais em R$, percentuais e prazos concretos (ja na base tecnica). Especifico vende, generico passa batido.
+7. SALVABILIDADE: o post deve ser util a ponto da pessoa querer salvar pra usar depois (passo a passo, checklist, calculo).
+8. Frases curtas, ritmo de leitura rapido, zero juridiques, zero giria.
+===================================================================================================="""
 
 
 def chamar_claude(prompt_txt):
@@ -602,14 +650,15 @@ with open(HOOKS_FILE, "w", encoding="utf-8") as f:
     json.dump(ganchos_usados, f, ensure_ascii=False, indent=2)
 
 # salva histirico rico (titulo + gancho) pra anti-repeticao robusta
-historico.append({
+# usa historico_local (sem os posts vindos do Instagram) pra nao poluir o arquivo
+historico_local.append({
     "tipo": TIPO,
     "titulo": data["titulo"],
     "slide1": data["slide1"],
 })
-historico = historico[-60:]  # mantem ultimos 60 posts
+historico_local = historico_local[-60:]  # mantem ultimos 60 posts
 with open(HIST_FILE, "w", encoding="utf-8") as f:
-    json.dump(historico, f, ensure_ascii=False, indent=2)
+    json.dump(historico_local, f, ensure_ascii=False, indent=2)
 
 print(f"Conteudo {TIPO} gerado:")
 print(f"  Titulo: {data['titulo']}")
