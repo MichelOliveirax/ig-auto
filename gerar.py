@@ -96,6 +96,28 @@ TOKENS_TEMA = {
 }
 
 
+# TRAVA JUDICIAL: REGRA ABSOLUTA - nenhum post pode falar de leilao judicial.
+TERMOS_JUDICIAL = [
+    "judicial", "judiciais", "praca", "praça", "1a praca", "2a praca",
+    "hasta publica", "hasta pública", "cpc", "codigo de processo civil",
+    "vara civel", "vara cível", "execucao fiscal", "execução fiscal",
+    "penhora judicial", "leilao do juiz", "leilão do juiz", "edital do juiz",
+]
+
+
+def _tem_judicial(data):
+    """Retorna o termo judicial encontrado em qualquer campo, ou None."""
+    texto = " ".join(str(data.get(c, "")) for c in
+                      ["titulo", "slide1", "slide2", "slide3", "slide4", "slide5", "legenda", "cta"])
+    texto = texto.lower()
+    # remove "extrajudicial"/"extrajudiciais" pra nao dar falso positivo com "judicial"
+    texto = texto.replace("extrajudiciais", " ").replace("extrajudicial", " ")
+    for termo in TERMOS_JUDICIAL:
+        if termo in texto:
+            return termo
+    return None
+
+
 def _e_repetido(titulo, slide1):
     """True se titulo/gancho forem parecidos OU tratarem do mesmo tema ja postado."""
     tok_novo = _palavras(titulo) | _palavras(slide1)
@@ -645,12 +667,22 @@ for tentativa in range(1, 9):
             " Mude COMPLETAMENTE de tema e de angulo. Escolha um assunto que NAO esta na lista de titulos ja publicados e que NAO use as mesmas palavras-chave."
         )
     data = chamar_claude(prompt_txt)
+    termo_jud = _tem_judicial(data)
+    if termo_jud:
+        parecido_com = f"continha termo JUDICIAL proibido: '{termo_jud}'"
+        print(f"  [trava-judicial] tentativa {tentativa}: {parecido_com} - regenerando...")
+        continue
     repetido, parecido_com = _e_repetido(data.get("titulo", ""), data.get("slide1", ""))
     if not repetido:
         break
     print(f"  [anti-repeticao] tentativa {tentativa}: parecido com '{parecido_com[:60]}' - regenerando...")
 else:
     print("  [anti-repeticao] AVISO: nao consegui conteudo 100% inedito em 5 tentativas; usando o ultimo.")
+
+# GARANTIA FINAL: nunca publicar conteudo judicial (regra absoluta)
+termo_jud_final = _tem_judicial(data)
+if termo_jud_final:
+    raise SystemExit(f"ABORTADO: conteudo ainda continha termo JUDICIAL '{termo_jud_final}' apos todas as tentativas. Nada sera publicado.")
 
 for campo in ["titulo", "slide1", "slide2", "slide3", "slide4", "slide5", "legenda"]:
     if not data.get(campo):
