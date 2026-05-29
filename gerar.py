@@ -87,13 +87,35 @@ def _similaridade(a, b):
     return len(sa & sb) / len(sa | sb)
 
 
+# palavras que identificam o TEMA do post. Se uma delas aparecer no post novo
+# E em qualquer post recente, e o mesmo assunto -> bloqueia.
+TOKENS_TEMA = {
+    "entrada", "financiamento", "financiar", "fgts", "sinal", "iptu",
+    "condominio", "cronometro", "comissao", "leiloeiro", "ocupado",
+    "desocupacao", "despejo", "hipoteca", "penhora", "vistoria", "matricula",
+}
+
+
 def _e_repetido(titulo, slide1):
-    """True se titulo OU gancho forem parecidos demais com algo ja postado."""
+    """True se titulo/gancho forem parecidos OU tratarem do mesmo tema ja postado."""
+    tok_novo = _palavras(titulo) | _palavras(slide1)
+    temas_novos = tok_novo & TOKENS_TEMA
     for h in historico:
-        if _similaridade(titulo, h.get("titulo", "")) >= 0.5:
-            return True, h.get("titulo", "")
-        if _similaridade(slide1, h.get("slide1", "")) >= 0.55:
-            return True, h.get("slide1", "")
+        ht = h.get("titulo", "")
+        hg = h.get("slide1", "")
+        # 1) similaridade alta de texto (limiar rigido)
+        if _similaridade(titulo, ht) >= 0.34:
+            return True, ht
+        if _similaridade(slide1, hg) >= 0.45:
+            return True, hg
+        # 2) mesmo TEMA distintivo (ex: entrada, financiamento, iptu...)
+        tok_hist = _palavras(ht) | _palavras(hg)
+        temas_comuns = temas_novos & tok_hist
+        if temas_comuns:
+            return True, f"{ht or hg[:40]} (mesmo tema: {', '.join(sorted(temas_comuns))})"
+        # 3) compartilham 2+ palavras significativas no titulo
+        if len(_palavras(titulo) & _palavras(ht)) >= 2:
+            return True, ht
     return False, None
 
 # 30 estilos de gancho para Claude escolher (rotaciona)
@@ -358,7 +380,8 @@ APROVACAO DE CREDITO PRA FINANCIAR:
 - Feita em CCA (Correspondente Caixa) ou agencia Caixa
 - Sem aprovacao previa = nao consegue financiar = nao consegue arrematar com financiamento
 
-REGRA DE OURO DO FINANCIAMENTO CAIXA EM LEILAO (PERGUNTA TOP DO PUBLICO):
+FINANCIAMENTO CAIXA EM LEILAO (use SO se for o tema escolhido - NAO force esse assunto em todo post):
+ATENCAO: o tema "entrada de 5% / financiamento" JA FOI MUITO POSTADO. So volte a ele se trouxer um angulo 100% novo e ainda nao publicado. Prefira variar de assunto.
 - ENTRADA MINIMA em imovel de LEILAO/LICITACAO Caixa = 5% do valor
 - ENTRADA MINIMA em financiamento TRADICIONAL fora de leilao = 20%
 - ISSO E UMA VANTAGEM ENORME do leilao Caixa: precisa de muito menos dinheiro na entrada
@@ -439,7 +462,7 @@ FORMATO OBRIGATORIO: retorne SOMENTE um JSON PLANO (sem envelopar em "slides" ou
 
 OBJETIVO: ensinar UM conceito tecnico de leilao em 5 slides. Salvavel = viralizavel.
 
-ESCOLHA UM TEMA priorizando IMOVEIS CAIXA (60% dos posts) das 20 duvidas reais listadas no bloco CAIXA acima. Nos outros 40%, varie entre: prazo de desfazimento, calculo de lance maximo, imovel ocupado vs livre, edital - o que olhar, ITBI no leilao, sinal de 5%, fim de hipoteca, modalidades Caixa (SFI vs Licitacao vs Venda Online vs Compra Direta), divida do anterior, condominio em atraso, vistoria possivel?, comissao do leiloeiro, cuidados com averbacao, prazo pra pagar, multa de desistencia (5% no Caixa - conferir modalidade), recurso de arrematante, posse vs propriedade, custo total real (lance + custos). SEMPRE no contexto EXTRAJUDICIAL CAIXA - nunca leilao judicial.
+ESCOLHA UM TEMA AINDA NAO POSTADO (veja a lista de titulos ja publicados mais abaixo e fuja deles). Varie entre: prazo de desfazimento, calculo de lance maximo, imovel ocupado vs livre, edital - o que olhar, ITBI no leilao, fim de hipoteca, modalidades Caixa (SFI vs Licitacao vs Venda Online vs Compra Direta), divida do anterior, condominio em atraso, vistoria possivel?, comissao do leiloeiro, cuidados com averbacao, prazo pra pagar, multa de desistencia (5% no Caixa - conferir modalidade), recurso de arrematante, posse vs propriedade, custo total real (lance + custos), penhora trabalhista herdada, matricula bloqueada, FGTS no leilao, imobiliaria credenciada gratis, PJ comprando, comprar em outro estado, cronometro da Venda Online, 8 proponentes por proposta. SEMPRE no contexto EXTRAJUDICIAL CAIXA - nunca leilao judicial. NAO repita o tema de entrada/financiamento de 5% (ja muito postado).
 
 ESTRUTURA (carrossel 5 slides):
 - titulo (titulo do tema, 5-8 palavras)
@@ -614,12 +637,12 @@ def chamar_claude(prompt_txt):
 
 # Gera com regeneracao automatica se vier repetido
 data = None
-for tentativa in range(1, 6):
+for tentativa in range(1, 9):
     prompt_txt = prompt
     if tentativa > 1:
         prompt_txt += (
-            "\n\nATENCAO: a tentativa anterior ficou PARECIDA DEMAIS com um post ja publicado."
-            " Mude COMPLETAMENTE de tema e de angulo. Escolha um assunto que NAO esta na lista de titulos ja publicados."
+            f"\n\nATENCAO (tentativa {tentativa}): a anterior ficou PARECIDA DEMAIS com um post ja publicado: '{parecido_com}'."
+            " Mude COMPLETAMENTE de tema e de angulo. Escolha um assunto que NAO esta na lista de titulos ja publicados e que NAO use as mesmas palavras-chave."
         )
     data = chamar_claude(prompt_txt)
     repetido, parecido_com = _e_repetido(data.get("titulo", ""), data.get("slide1", ""))
