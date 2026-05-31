@@ -6,6 +6,8 @@ import json
 import os
 import re
 import sys
+import time
+import urllib.error
 import urllib.request
 
 TIPO = sys.argv[1].upper()
@@ -632,17 +634,41 @@ def chamar_claude(prompt_txt):
         "max_tokens": 4500,
         "messages": [{"role": "user", "content": prompt_txt}],
     }).encode("utf-8")
-    req = urllib.request.Request(
-        "https://api.anthropic.com/v1/messages",
-        data=body,
-        headers={
-            "x-api-key": ANTHROPIC_KEY,
-            "anthropic-version": "2023-06-01",
-            "content-type": "application/json",
-        },
-    )
-    with urllib.request.urlopen(req, timeout=120) as r:
-        resp = json.loads(r.read().decode("utf-8"))
+    resp = None
+    ultimo_erro = None
+    for tentativa_api in range(1, 5):
+        req = urllib.request.Request(
+            "https://api.anthropic.com/v1/messages",
+            data=body,
+            headers={
+                "x-api-key": ANTHROPIC_KEY,
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json",
+            },
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=120) as r:
+                resp = json.loads(r.read().decode("utf-8"))
+            break
+        except urllib.error.HTTPError as e:
+            corpo = ""
+            try:
+                corpo = e.read().decode("utf-8")[:500]
+            except Exception:
+                pass
+            ultimo_erro = f"HTTP {e.code}: {corpo}"
+            print(f"  [api] tentativa {tentativa_api} falhou ({e.code}). Detalhe: {corpo}")
+            # 400 = erro de requisicao; nao adianta repetir igual. 429/5xx = transitorio.
+            if e.code in (429, 500, 502, 503, 529):
+                time.sleep(5 * tentativa_api)
+                continue
+            raise RuntimeError(f"API Anthropic recusou a requisicao: {ultimo_erro}")
+        except urllib.error.URLError as e:
+            ultimo_erro = str(e)
+            print(f"  [api] tentativa {tentativa_api} erro de rede: {e}. Retry...")
+            time.sleep(5 * tentativa_api)
+    if resp is None:
+        raise RuntimeError(f"API Anthropic falhou apos retries: {ultimo_erro}")
 
     texto = resp["content"][0]["text"].strip()
     if "```" in texto:
