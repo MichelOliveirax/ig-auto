@@ -732,9 +732,11 @@ def chamar_claude(prompt_txt):
     return d
 
 
-# Gera com regeneracao automatica se vier repetido
+# Gera com regeneracao automatica se vier repetido. REGRA ABSOLUTA: nunca publicar repetido.
 data = None
-for tentativa in range(1, 9):
+conteudo_inedito = False
+MAX_TENTATIVAS = 12
+for tentativa in range(1, MAX_TENTATIVAS + 1):
     prompt_txt = prompt
     if tentativa > 1:
         prompt_txt += (
@@ -749,15 +751,19 @@ for tentativa in range(1, 9):
         continue
     repetido, parecido_com = _e_repetido(data.get("titulo", ""), data.get("slide1", ""))
     if not repetido:
+        conteudo_inedito = True
+        print(f"  [anti-repeticao] OK na tentativa {tentativa}: conteudo inedito.")
         break
     print(f"  [anti-repeticao] tentativa {tentativa}: parecido com '{parecido_com[:60]}' - regenerando...")
-else:
-    print("  [anti-repeticao] AVISO: nao consegui conteudo 100% inedito em 5 tentativas; usando o ultimo.")
 
-# GARANTIA FINAL: nunca publicar conteudo judicial (regra absoluta)
+# GARANTIA FINAL 1: nunca publicar conteudo judicial (regra absoluta)
 termo_jud_final = _tem_judicial(data)
 if termo_jud_final:
     raise SystemExit(f"ABORTADO: conteudo ainda continha termo JUDICIAL '{termo_jud_final}' apos todas as tentativas. Nada sera publicado.")
+
+# GARANTIA FINAL 2: nunca publicar conteudo repetido (regra absoluta)
+if not conteudo_inedito:
+    raise SystemExit(f"ABORTADO: nao consegui conteudo INEDITO em {MAX_TENTATIVAS} tentativas (ultima parecida com '{parecido_com}'). Nada sera publicado - melhor ficar sem post do que repetir.")
 
 for campo in ["titulo", "slide1", "slide2", "slide3", "slide4", "slide5", "legenda"]:
     if not data.get(campo):
