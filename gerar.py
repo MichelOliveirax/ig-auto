@@ -743,7 +743,12 @@ for tentativa in range(1, MAX_TENTATIVAS + 1):
             f"\n\nATENCAO (tentativa {tentativa}): a anterior ficou PARECIDA DEMAIS com um post ja publicado: '{parecido_com}'."
             " Mude COMPLETAMENTE de tema e de angulo. Escolha um assunto que NAO esta na lista de titulos ja publicados e que NAO use as mesmas palavras-chave."
         )
-    data = chamar_claude(prompt_txt)
+    try:
+        data = chamar_claude(prompt_txt)
+    except (json.JSONDecodeError, RuntimeError, KeyError, IndexError) as e:
+        parecido_com = f"resposta invalida da API/JSON: {e}"
+        print(f"  [parse] tentativa {tentativa}: {parecido_com} - regenerando...")
+        continue
     termo_jud = _tem_judicial(data)
     if termo_jud:
         parecido_com = f"continha termo JUDICIAL proibido: '{termo_jud}'"
@@ -760,6 +765,10 @@ for tentativa in range(1, MAX_TENTATIVAS + 1):
         print(f"  [anti-repeticao] OK na tentativa {tentativa}: conteudo inedito.")
         break
     print(f"  [anti-repeticao] tentativa {tentativa}: parecido com '{parecido_com[:60]}' - regenerando...")
+
+# GARANTIA 0: se nenhuma tentativa produziu conteudo valido, aborta limpo
+if data is None or not conteudo_inedito:
+    raise SystemExit(f"ABORTADO: nao foi possivel gerar conteudo valido/inedito em {MAX_TENTATIVAS} tentativas (ultimo motivo: {parecido_com}). Nada sera publicado.")
 
 # GARANTIA FINAL 1: nunca publicar conteudo judicial (regra absoluta)
 termo_jud_final = _tem_judicial(data)
