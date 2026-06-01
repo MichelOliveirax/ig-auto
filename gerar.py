@@ -188,6 +188,9 @@ TRABALHAMOS APENAS COM LEILAO EXTRAJUDICIAL E APENAS IMOVEIS CAIXA.
   1o/2o Leilao SFI, Licitacao Aberta, Venda Online, Compra/Venda Direta.
 - As regras de leilao judicial abaixo servem SO como referencia interna para NAO confundir.
   NUNCA cite regra judicial num post. Se um tema so se aplica a judicial, NAO use.
+- REGRA-MAE DO EDITAL: os editais PODEM MUDAR e cada leiloeiro cria o seu dentro da lei.
+  TODO post que falar de regra/multa/prazo/desistencia/quem paga DEVE orientar o usuario a
+  CONSULTAR O EDITAL e o ANUNCIO do imovel. Nunca apresentar numero como regra fixa universal.
 =============================================================================
 
 === VERDADES TECNICAS DO LEILAO DE IMOVEIS NO BRASIL (NUNCA CONTRADIGA) ===
@@ -217,25 +220,26 @@ REGRAS LEGAIS:
 ================ MULTA POR MODALIDADE (REGRA CRITICA - NUNCA ERRAR) ================
 ANTES de afirmar QUALQUER multa/penalidade num post, confira EXATAMENTE a modalidade:
 
-1) LEILAO SFI (1o e 2o Leilao) e LICITACAO ABERTA (extrajudicial Caixa):
-   - TEM multa por desistencia = 5% do lance + perda da comissao paga ao leiloeiro
-   - Pode haver impedimento de participar de futuros leiloes Caixa
-   - NAO TEM direito de arrependimento
-   - A multa de 5% E SO DESTAS DUAS MODALIDADES.
-2) VENDA ONLINE (Caixa):
-   - NAO segue a multa de 5% do leilao. Tem regra propria de desistencia/arrependimento.
-   - NUNCA aplicar os 5% do leilao aqui. Mandar consultar o EDITAL/regras da Venda Online.
-3) COMPRA DIRETA / VENDA DIRETA (Lei 13.303/2016):
-   - NAO tem a multa de 5% do leilao SFI. Regras proprias - consultar o EDITAL da Venda Direta.
-   - Tende a haver possibilidade de desistencia/arrependimento. NUNCA cravar multa de 5% aqui.
-4) LEILAO JUDICIAL (fora Caixa):
-   - Multa pode chegar a 20% do lance + perda do sinal (CPC). NUNCA misturar com Caixa.
+REGRA-MAE: os EDITAIS PODEM MUDAR e cada leiloeiro cria o seu dentro da lei. TODO post que tocar
+em multa/desistencia/arrependimento/prazo DEVE mandar o usuario CONSULTAR O EDITAL do imovel.
+Nunca apresentar numero como verdade fixa - sempre "conforme o edital".
 
-REGRA CRITICA: a multa de desistencia de 5% so vale para LEILAO SFI e LICITACAO ABERTA.
-Para VENDA ONLINE e VENDA/COMPRA DIRETA, NUNCA dizer "multa de 5%" - mandar consultar o edital.
-NUNCA generalizar "multa de desistencia em leilao Caixa" como se valesse pra todas as modalidades.
-O numero "20%" NUNCA pode aparecer associado a imovel CAIXA.
-Se nao tiver certeza da regra daquela modalidade especifica, NAO cite numero de multa - oriente a ler o edital.
+1) VENDA ONLINE e COMPRA/VENDA DIRETA (regramento Caixa 19.603 - item 14 e 15):
+   - ARREPENDIMENTO: em ate 7 DIAS CORRIDOS da homologacao da proposta, o comprador pode se arrepender
+     com DEVOLUCAO INTEGRAL dos valores pagos e SEM MULTA (art. 49 do CDC).
+   - DESISTENCIA: se cancelar APOS os 7 dias (e antes de assinar o contrato) = retem MULTA de 5% do
+     valor total da proposta + restante devolvido sem correcao + possivel BLOQUEIO de comprar na Caixa.
+   - Ou seja: dentro de 7 dias = sem multa; depois de 7 dias = multa 5%. SEMPRE conferir no edital.
+2) LEILAO SFI (1o e 2o Leilao) e LICITACAO ABERTA (extrajudicial Caixa):
+   - Comissao do leiloeiro: 5% (por fora, paga ao leiloeiro).
+   - Regras de desistencia/penalidade ficam no EDITAL de cada leilao - e cada leiloeiro faz o seu.
+   - NAO cravar numero de multa de cabeca: mandar consultar o edital daquele leilao especifico.
+3) LEILAO JUDICIAL (fora Caixa):
+   - NUNCA usar (fora do escopo). Multa do CPC (ate 20%) jamais associar a imovel Caixa.
+
+REGRA CRITICA: o numero "20%" NUNCA pode aparecer associado a imovel CAIXA.
+NUNCA generalizar "multa de desistencia em leilao Caixa" como se fosse uma regra unica pra tudo.
+Cada modalidade e cada edital tem sua regra - sempre orientar a LER O EDITAL atualizado do imovel.
 ====================================================================================
 - Hipoteca: extinta automaticamente apos arrematacao (Lei 9.514)
 - Penhora trabalhista: NAO se extingue, herdada pelo arrematante (CUIDADO)
@@ -389,9 +393,9 @@ COMISSAO DO LEILOEIRO:
 REGRAS QUE PUBLICO IGNORA E TOMA PREJUIZO:
 - NAO PODE alterar, incluir ou excluir proponentes apos arrematacao (em leilao)
 - NAO PODE alterar proponente principal
-- NAO TEM direito de arrependimento (isso e SO no Leilao SFI/Licitacao; Venda Online/Direta TEM desistencia conforme edital)
-- DESISTENCIA no Leilao SFI/Licitacao = multa 5% do lance + perda da comissao paga + possivel impedimento de futuros leiloes Caixa
-  (essa multa de 5% NAO se aplica a Venda Online nem a Venda/Compra Direta - consultar o edital de cada uma)
+- Regras de arrependimento/desistencia/multa do leilao e licitacao ficam NO EDITAL de cada leilao,
+  e cada leiloeiro cria o seu dentro da lei. NAO cravar numero - mandar consultar o edital do imovel.
+- Venda Online/Direta: tem arrependimento de 7 dias (sem multa) e depois desistencia com multa 5% (regramento 19.603) - conferir edital.
 
 RESPONSABILIDADE EXCLUSIVA DO ARREMATANTE:
 - IPTU e condominio em atraso (salvo se edital diz contrario expressamente)
@@ -490,7 +494,7 @@ CHECKLIST DE DUE DILIGENCE ANTES DE ARREMATAR (extrajudicial) - vira post de "o 
 ATENCAO ESCOPO: usar SEMPRE no contexto EXTRAJUDICIAL. Nunca citar praca/processo/CPC/judicial.
 
 NUMEROS PRA USAR EM POSTS (verdade absoluta):
-- Multa desistencia: 5% SO em Leilao SFI e Licitacao Aberta. Venda Online/Direta NAO tem essa multa (consultar edital). Nunca 20% (isso e judicial).
+- Desistencia Venda Online/Direta: ate 7 dias da homologacao = arrependimento SEM multa (devolucao integral); depois de 7 dias = multa 5%. SEMPRE consultar o edital. Nunca 20% (isso e judicial).
 - Comissao leiloeiro Caixa: 5% por fora
 - Boleto: 2 dias uteis
 - Maximo proponentes: 8
