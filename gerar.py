@@ -195,8 +195,8 @@ TRABALHAMOS APENAS COM LEILAO EXTRAJUDICIAL E APENAS IMOVEIS CAIXA.
 CUSTOS REAIS de uma arrematacao (use SEMPRE quando falar de "lance + custos" ou calcular ROI):
 1. Lance (valor pago no leilao)
 2. Comissao do leiloeiro: 5% sobre o valor do lance (extrajudicial) ou 5% sobre o lance (judicial, fixada por lei)
-3. ITBI: 2% a 3% do valor (varia por municipio) - SP=3%, RJ=2%, BH=3%
-4. Registro do imovel no cartorio: ~1% do valor (taxa cartorial)
+3. ITBI: 3% do valor (referencia padrao; alguns municipios variam, mas use 3%)
+4. Registro do imovel no cartorio: MEDIA 2,5% do valor (varia por ESTADO - tabela do cartorio). NAO usar 1%.
 5. Dividas em atraso herdadas (CASO o edital nao quite):
    - IPTU atrasado
    - Condominio atrasado (em leilao extrajudicial NAO se transfere, em judicial pode)
@@ -241,7 +241,7 @@ NUMEROS REALISTAS (use como base):
 - Desconto em 2a praca: 25% a 50%
 - Desconto em extrajudicial banco: 20% a 40%
 - Tempo medio entre arremate e posse: 3 a 12 meses (livre) ou 6 a 24 meses (ocupado)
-- Custo total real (lance + tudo): ~12% a 18% acima do lance
+- Custo total real (lance + tudo): ~12% a 18% acima do lance (ITBI 3% + registro media 2,5% + leiloeiro 5% + docs + desocupacao)
 
 JAMAIS DIGA:
 - "Custos = despejo + reforma" (incompleto e amador)
@@ -251,7 +251,7 @@ JAMAIS DIGA:
 - "Caixa devolve dinheiro se desistir" (nao devolve)
 
 QUANDO FALAR EM EXEMPLO NUMERICO, use estrutura:
-"Imovel avaliado R$ X | Lance R$ Y | + Custos (ITBI/registro/leiloeiro/desocupacao) ~12% = Investimento total R$ Z | Vende por R$ W | Lucro liquido R$ K apos IR 15%"
+"Imovel avaliado R$ X | Lance R$ Y | + Custos (ITBI 3% + registro media 2,5% + leiloeiro 5% + desocupacao) ~12% = Investimento total R$ Z | Vende por R$ W | Lucro liquido R$ K apos IR 15%"
 
 === IMOVEIS CAIXA - 5 MODALIDADES (FONTE: CARTILHA OFICIAL CAIXA JUN/2024) ===
 PRIORIZE conteudo sobre Imoveis Caixa - publico ama. Site oficial: caixa.gov.br/imoveiscaixa
