@@ -495,12 +495,23 @@ FLUXO DO LEILAO EXTRAJUDICIAL (PROCESSO GERAL - Lei 9.514/97):
 3) Intimacao para purgar a mora - feita pelo Oficial de Registro no CRI. Devedor tem 15 dias para pagar SO O ATRASO (habitacional +30 dias). [RISCO DE NULIDADE se falhar]
 4) Mora purgada? SIM = devedor recupera (fim). NAO = segue.
 5) Consolidacao da propriedade - averbacao gera numero de Protocolo. Ate a averbacao o devedor ainda pode purgar. Consulta no CRI via registradores.onr.org.br (Protocolo + Matricula).
-6) Informar data/horario do 1o e 2o leilao ao devedor - ele tem PREFERENCIA. Confiavel so pelo AR. [RISCO DE NULIDADE se falhar]
+6) COMUNICAR ao devedor as DATAS, HORARIOS e LOCAIS dos 2 leiloes - EXIGENCIA DA LEI (art. 27, §2o-A,
+   Lei 13.465/2017, red. 14.711/2023): por correspondencia aos enderecos do contrato, inclusive e-mail.
+   [RISCO DE NULIDADE MAIS GRAVE - ver regra abaixo]
 7) 1o Leilao (exigido por lei): lance minimo = valor contratual OU venal (o que for maior).
 8) Arrematado? NAO -> 2o Leilao (exigido por lei): lance minimo = dividas + encargos.
 9) Nao arrematado nos 2 leiloes -> Carta de Quitacao: credor decide o destino do imovel ->
    Venda (Direta) Online, 3o Leilao, ou Licitacao Aberta/Fechada.
-PONTOS DE NULIDADE (otimo tema): falha na intimacao da mora ou em avisar o devedor sobre o leilao.
+
+PONTOS DE NULIDADE - O QUE REALMENTE ANULA (verificado na Lei 9.514/97):
+A lei diz que vicios nos requisitos de cobranca/leilao se resolvem em PERDAS E DANOS e NAO impedem a
+reintegracao de posse - EXCETO a exigencia de NOTIFICACAO DO DEVEDOR (art. 30, par. unico, e dispositivo MCMV).
+Ou seja, os 2 vicios mais graves (que podem ANULAR / obstar a posse do arrematante) sao:
+  (a) Falha na INTIMACAO para purgar a mora (art. 26) - intimacao pessoal/AR/edital obrigatoria.
+  (b) Falha em COMUNICAR o devedor das datas/horarios/locais dos 2 leiloes (art. 27, §2o-A).
+Os demais defeitos de procedimento geralmente viram so perdas e danos. Mas a NOTIFICACAO do devedor e
+a EXCECAO: e o ponto que mais derruba arrematacao. Por isso, conferir SEMPRE se houve as duas notificacoes.
+SEMPRE orientar o usuario a checar isso no processo/no Cartorio e a consultar o edital/a fonte oficial.
 REGRA: NUNCA usar nomes proprios/autoria de materiais nos textos dos posts.
 
 CHECKLIST DE DUE DILIGENCE ANTES DE ARREMATAR (extrajudicial) - vira post de "o que verificar":
