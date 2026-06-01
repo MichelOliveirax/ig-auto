@@ -493,6 +493,18 @@ CHECKLIST DE DUE DILIGENCE ANTES DE ARREMATAR (extrajudicial) - vira post de "o 
 - Localizacao/liquidez, valor medio de condominio e IPTU, estimativa de aluguel e de venda, custo de reforma.
 ATENCAO ESCOPO: usar SEMPRE no contexto EXTRAJUDICIAL. Nunca citar praca/processo/CPC/judicial.
 
+EVICCAO DE DIREITO (PROTECAO DO ARREMATANTE NO EDITAL - art. 447 e seg. do Codigo Civil):
+- O que e: risco de o comprador PERDER o imovel para um terceiro com direito melhor, se sobrevier
+  decisao definitiva anulando o titulo da Caixa (consolidacao/carta de arrematacao) ou a venda.
+- POR QUE E PROTECAO: se isso acontecer, o contrato se desfaz e a CAIXA DEVOLVE ao comprador:
+  o valor pago pelo imovel (caucao/sinal/prestacao/total) + despesas comprovadas (cartorio, tributos,
+  condominio) + benfeitorias uteis/necessarias feitas apos o registro - tudo corrigido pelo indice da
+  poupanca (Calculadora do Cidadao do Banco Central). O comprador NAO fica no prejuizo do que investiu.
+- LIMITE: a eviccao NAO gera indenizacao por perdas e danos (so devolucao do que foi pago + despesas + benfeitorias).
+- IMPORTANTE DE ESCOPO: explicar SEM usar as palavras "judicial/acao judicial/tribunal/juiz/processo".
+  Falar em "terceiro com direito melhor", "decisao definitiva", "a Justica reconhece" e tudo bem.
+- SEMPRE mandar o usuario LER A CLAUSULA DE EVICCAO no edital do imovel (cada edital pode variar).
+
 NUMEROS PRA USAR EM POSTS (verdade absoluta):
 - Desistencia Venda Online/Direta: ate 7 dias da homologacao = arrependimento SEM multa (devolucao integral); depois de 7 dias = multa 5%. SEMPRE consultar o edital. Nunca 20% (isso e judicial).
 - Comissao leiloeiro Caixa: 5% por fora
