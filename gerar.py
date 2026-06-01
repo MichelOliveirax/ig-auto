@@ -221,16 +221,21 @@ ANTES de afirmar QUALQUER multa/penalidade num post, confira EXATAMENTE a modali
    - TEM multa por desistencia = 5% do lance + perda da comissao paga ao leiloeiro
    - Pode haver impedimento de participar de futuros leiloes Caixa
    - NAO TEM direito de arrependimento
+   - A multa de 5% E SO DESTAS DUAS MODALIDADES.
 2) VENDA ONLINE (Caixa):
-   - Segue Regras da Venda Online. Confirmar no documento antes de citar valor de multa.
-   - NAO afirmar "multa de 20%" - isso e leilao judicial, NAO Caixa.
+   - NAO segue a multa de 5% do leilao. Tem regra propria de desistencia/arrependimento.
+   - NUNCA aplicar os 5% do leilao aqui. Mandar consultar o EDITAL/regras da Venda Online.
 3) COMPRA DIRETA / VENDA DIRETA (Lei 13.303/2016):
-   - Regras proprias. NAO assumir a mesma multa do leilao SFI.
+   - NAO tem a multa de 5% do leilao SFI. Regras proprias - consultar o EDITAL da Venda Direta.
+   - Tende a haver possibilidade de desistencia/arrependimento. NUNCA cravar multa de 5% aqui.
 4) LEILAO JUDICIAL (fora Caixa):
    - Multa pode chegar a 20% do lance + perda do sinal (CPC). NUNCA misturar com Caixa.
 
-REGRA: o numero "20%" NUNCA pode aparecer associado a imovel CAIXA. Caixa = 5%.
-Se nao tiver certeza da multa daquela modalidade especifica, NAO cite numero de multa no post.
+REGRA CRITICA: a multa de desistencia de 5% so vale para LEILAO SFI e LICITACAO ABERTA.
+Para VENDA ONLINE e VENDA/COMPRA DIRETA, NUNCA dizer "multa de 5%" - mandar consultar o edital.
+NUNCA generalizar "multa de desistencia em leilao Caixa" como se valesse pra todas as modalidades.
+O numero "20%" NUNCA pode aparecer associado a imovel CAIXA.
+Se nao tiver certeza da regra daquela modalidade especifica, NAO cite numero de multa - oriente a ler o edital.
 ====================================================================================
 - Hipoteca: extinta automaticamente apos arrematacao (Lei 9.514)
 - Penhora trabalhista: NAO se extingue, herdada pelo arrematante (CUIDADO)
@@ -384,8 +389,9 @@ COMISSAO DO LEILOEIRO:
 REGRAS QUE PUBLICO IGNORA E TOMA PREJUIZO:
 - NAO PODE alterar, incluir ou excluir proponentes apos arrematacao (em leilao)
 - NAO PODE alterar proponente principal
-- NAO TEM direito de arrependimento (diferente de Venda Online/Direta)
-- DESISTENCIA = multa 5% do lance + perda da comissao paga + possivel impedimento de futuros leiloes Caixa
+- NAO TEM direito de arrependimento (isso e SO no Leilao SFI/Licitacao; Venda Online/Direta TEM desistencia conforme edital)
+- DESISTENCIA no Leilao SFI/Licitacao = multa 5% do lance + perda da comissao paga + possivel impedimento de futuros leiloes Caixa
+  (essa multa de 5% NAO se aplica a Venda Online nem a Venda/Compra Direta - consultar o edital de cada uma)
 
 RESPONSABILIDADE EXCLUSIVA DO ARREMATANTE:
 - IPTU e condominio em atraso (salvo se edital diz contrario expressamente)
@@ -484,7 +490,7 @@ CHECKLIST DE DUE DILIGENCE ANTES DE ARREMATAR (extrajudicial) - vira post de "o 
 ATENCAO ESCOPO: usar SEMPRE no contexto EXTRAJUDICIAL. Nunca citar praca/processo/CPC/judicial.
 
 NUMEROS PRA USAR EM POSTS (verdade absoluta):
-- Multa desistencia Leilao Caixa: 5% (nao 20% como em leilao judicial extrajudicial generico)
+- Multa desistencia: 5% SO em Leilao SFI e Licitacao Aberta. Venda Online/Direta NAO tem essa multa (consultar edital). Nunca 20% (isso e judicial).
 - Comissao leiloeiro Caixa: 5% por fora
 - Boleto: 2 dias uteis
 - Maximo proponentes: 8
