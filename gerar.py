@@ -191,6 +191,11 @@ TRABALHAMOS APENAS COM LEILAO EXTRAJUDICIAL E APENAS IMOVEIS CAIXA.
 - REGRA-MAE DO EDITAL: os editais PODEM MUDAR e cada leiloeiro cria o seu dentro da lei.
   TODO post que falar de regra/multa/prazo/desistencia/quem paga DEVE orientar o usuario a
   CONSULTAR O EDITAL e o ANUNCIO do imovel. Nunca apresentar numero como regra fixa universal.
+- REGRA-MAE DE PRECISAO JURIDICA: explique cada conceito EXATAMENTE como a lei diz, sem simplificar
+  a ponto de ficar errado. JAMAIS confunda conceitos parecidos (ex: purgacao da mora x direito de
+  preferencia; arrependimento x desistencia; leilao x licitacao x venda direta). Se houver duvida
+  sobre um detalhe legal, prefira NAO afirmar e orientar a consultar a fonte oficial/edital.
+  Use apenas as definicoes da base tecnica abaixo (ja verificadas na lei) - nao invente regra.
 =============================================================================
 
 === VERDADES TECNICAS DO LEILAO DE IMOVEIS NO BRASIL (NUNCA CONTRADIGA) ===
@@ -461,17 +466,33 @@ Se nao tiver o dado do anuncio especifico, NAO afirme valor nem quem paga: orien
 ==============================================================================
 
 === LEILAO EXTRAJUDICIAL / ALIENACAO FIDUCIARIA (Lei 9.514/97) - FONTE: DOCS DO USUARIO ===
-PURGACAO DA MORA (tema forte de post):
-- Ate a CONSOLIDACAO da propriedade, o devedor pode QUITAR a divida e RECUPERAR o imovel (purgar a mora).
-- CONSOLIDACAO DA PROPRIEDADE = averbacao na matricula passando o imovel ao credor fiduciario. So depois dela vai a leilao.
+PURGACAO DA MORA (Lei 9.514/97, art. 26) - DEFINICAO EXATA, NAO CONFUNDIR:
+- E um procedimento EXTRAJUDICIAL, feito no CARTORIO DE REGISTRO DE IMOVEIS (nao e na Justica).
+- Quando o devedor (fiduciante) atrasa, o credor pede ao Oficial do RGI para INTIMAR o devedor.
+- O devedor tem 15 DIAS (contados da intimacao) para pagar SO O QUE ESTA EM ATRASO: prestacoes vencidas
+  + as que vencerem ate o pagamento + juros + penalidades + encargos contratuais e legais + TRIBUTOS (IPTU)
+  + condominio + despesas de cobranca e de intimacao. (art. 26, §1o)
+- SE PAGAR em 15 dias = PURGA A MORA: o contrato volta ao normal e o devedor MANTEM o imovel.
+- SE NAO PAGAR = o Oficial averba a CONSOLIDACAO DA PROPRIEDADE em nome do credor (apos ITBI etc.). So entao vai a leilao.
+- HABITACIONAL: a consolidacao so pode ser averbada 30 dias APOS o transcurso dos 15 dias (art. 26-A / entendimento CNJ) - na pratica pode dar ate ~45 dias.
+- Intimacao pode ser pessoal, por RTD, pelos Correios com AR, ou por EDITAL (se devedor em local ignorado, min. 3 dias em jornal).
+
+NAO CONFUNDIR PURGACAO DA MORA x DIREITO DE PREFERENCIA (erro comum - explicar certo):
+- PURGACAO DA MORA = ANTES da consolidacao. Paga SO O ATRASO (nao a divida toda). Prazo 15 dias. Recupera o imovel.
+- DIREITO DE PREFERENCIA (art. 27, §2o-B, incluido pela Lei 13.465/2017) = DEPOIS da consolidacao e ATE o 2o leilao.
+  O devedor pode READQUIRIR o imovel pagando a DIVIDA TODA + encargos/despesas/seguro/condominio/tributos (ITBI, laudemio)
+  pagos na consolidacao + despesas de cobranca e leilao. NAO e "purgar a mora" - e recompra pelo valor da divida.
+- Resumo pro post: 15 dias antes da consolidacao = purga so o atraso; depois, ate o 2o leilao = preferencia pagando a divida inteira.
+
+OUTRAS NOTAS:
 - Conferir SEMPRE na matricula se ja houve a averbacao da consolidacao antes de confiar no leilao.
-- Intimacao do devedor (pra purgar a mora E da realizacao do leilao) e OBRIGATORIA. Falha de intimacao pode ANULAR o leilao - risco real do arrematante.
+- Intimacao do devedor (pra purgar a mora E da realizacao do leilao) e OBRIGATORIA. Falha pode ANULAR o leilao - risco do arrematante.
 - Como puxar a certidao/intimacao: site da ONR (registradores.onr.org.br) > Certidao Digital > Documento Arquivado + matricula CNM. Tem botao SOLICITAR SUPORTE.
 
 FLUXO DO LEILAO EXTRAJUDICIAL (PROCESSO GERAL - Lei 9.514/97):
 1) Constituicao da propriedade fiduciaria (devedor fiduciante + credor fiduciario)
 2) Atraso de parcelas (usualmente 3)
-3) Intimacao para purgar a mora - feita pelo Oficial de Registro no CRI. Devedor tem 15 dias (MCMV). [RISCO DE NULIDADE se falhar]
+3) Intimacao para purgar a mora - feita pelo Oficial de Registro no CRI. Devedor tem 15 dias para pagar SO O ATRASO (habitacional +30 dias). [RISCO DE NULIDADE se falhar]
 4) Mora purgada? SIM = devedor recupera (fim). NAO = segue.
 5) Consolidacao da propriedade - averbacao gera numero de Protocolo. Ate a averbacao o devedor ainda pode purgar. Consulta no CRI via registradores.onr.org.br (Protocolo + Matricula).
 6) Informar data/horario do 1o e 2o leilao ao devedor - ele tem PREFERENCIA. Confiavel so pelo AR. [RISCO DE NULIDADE se falhar]
