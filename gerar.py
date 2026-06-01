@@ -749,6 +749,11 @@ for tentativa in range(1, MAX_TENTATIVAS + 1):
         parecido_com = f"continha termo JUDICIAL proibido: '{termo_jud}'"
         print(f"  [trava-judicial] tentativa {tentativa}: {parecido_com} - regenerando...")
         continue
+    # Tema forcado pelo usuario tem prioridade: nao aplica anti-repeticao (escolha deliberada)
+    if TEMA_FORCADO:
+        conteudo_inedito = True
+        print(f"  [tema-forcado] usando tema definido pelo usuario; anti-repeticao ignorado.")
+        break
     repetido, parecido_com = _e_repetido(data.get("titulo", ""), data.get("slide1", ""))
     if not repetido:
         conteudo_inedito = True
