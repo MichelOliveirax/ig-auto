@@ -26,6 +26,10 @@ def _br(v):
     return f"R$ {v:,.0f}".replace(",", ".")
 
 
+# Estados que NUNCA devem ser postados (regra do usuario)
+UF_BLOQUEADAS = {"rj"}
+
+
 def buscar(paginas=3):
     imoveis = []
     for pg in range(1, paginas + 1):
@@ -36,13 +40,19 @@ def buscar(paginas=3):
         except Exception as e:
             print(f"  [imovel] falha pagina {pg}: {e}")
             continue
-        for c in re.split(r'(?=https://venda-imoveis\.caixa\.gov\.br/fotos/)', src):
+        # cada imovel e um <a href="/imoveis/<slug>-<uf>-<id>"> ... </a>
+        for c in re.split(r'(?=<a [^>]*href="/imoveis/)', src):
+            href = re.search(r'href="(/imoveis/[^"]+)"', c)
             foto = re.search(r'(https://venda-imoveis\.caixa\.gov\.br/fotos/\S+?\.jpg)', c)
             aval = re.search(r'line-through[^>]*>R\$\xa0?([\d\.]+,\d{2})', c)
             lance = re.search(r'font-black[^>]*>R\$\xa0?([\d\.]+,\d{2})', c)
             titulo = re.search(r'<h2[^>]*>(.*?)</h2>', c, re.S)
-            if not (foto and aval and lance):
+            if not (href and foto and aval and lance):
                 continue
+            uf_m = re.search(r'-([a-z]{2})-\d+', href.group(1))
+            uf = uf_m.group(1) if uf_m else ""
+            if uf in UF_BLOQUEADAS:
+                continue  # NUNCA postar imovel do RJ
             av, la = _num(aval.group(1)), _num(lance.group(1))
             if av <= 0 or la <= 0 or la >= av:
                 continue
@@ -50,6 +60,7 @@ def buscar(paginas=3):
             imoveis.append({
                 "foto": foto.group(1),
                 "foto_id": foto.group(1).rsplit("/", 1)[-1],
+                "uf": uf.upper(),
                 "avaliacao": av,
                 "lance": la,
                 "desconto": round((1 - la / av) * 100),
@@ -84,10 +95,12 @@ def montar(im):
     registro = round(lance * 0.025)
     de_bolso = entrada + itbi + registro  # custos iniciais aproximados (fora taxa de contrato/desocupacao/reforma)
 
+    local_uf = f"{im['local']} - {im.get('uf','')}".strip(" -")
+    im["local"] = local_uf
     dados = {
         "imovel": {
             "foto": im["foto"],
-            "local": im["local"],
+            "local": local_uf,
             "lance": _br(lance),
             "avaliacao": _br(im["avaliacao"]),
             "desconto": f"-{im['desconto']}%",
