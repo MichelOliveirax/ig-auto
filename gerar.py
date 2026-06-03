@@ -447,8 +447,10 @@ CONFERIR NO EDITAL:
 - Estado de ocupacao
 - Forma e prazo de pagamento
 
-================ REGRA CRITICA SOBRE IPTU/CONDOMINIO ATRASADO (ATUALIZADA) ================
-REGRA DO 10% (Regras da Venda Online Caixa 19.603 - confirmada):
+================ REGRA CRITICA SOBRE IPTU/CONDOMINIO ATRASADO (ATUALIZADA - MUDANCA RECENTE jun/2026) ================
+REGRA DO 10% (Regras da Venda Online Caixa 19.603 - confirmada; mudanca recente, comunicar como novidade):
+OBRIGATORIO: TODO post que tocar em IPTU/tributos/condominio/dividas DEVE terminar mandando
+o usuario VERIFICAR SEMPRE o ANUNCIO do imovel e o EDITAL (a responsabilidade aparece no anuncio).
 - TRIBUTOS (IPTU): se o debito for INFERIOR a 10% do valor de AVALIACAO -> o COMPRADOR/arrematante paga.
   Se o debito for SUPERIOR a 10% do valor de avaliacao -> a CAIXA paga INTEGRALMENTE.
 - CONDOMINIO: o comprador paga ate 10% do valor de avaliacao; a CAIXA paga o que EXCEDER 10% (parte excedente).
