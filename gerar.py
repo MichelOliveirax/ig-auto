@@ -278,21 +278,21 @@ PRIORIZE conteudo sobre Imoveis Caixa - publico ama. Site oficial: caixa.gov.br/
 3) LICITACAO ABERTA (Lei 13.303/2017):
    - Valor: avaliacao Caixa COM desconto
    - Comissao 5%
-   - IPTU/condominio atrasado: em regra o ARREMATANTE assume. A Caixa NAO paga. Conferir SEMPRE o anuncio e o edital do imovel.
+   - IPTU/condominio atrasado: regra dos 10% - divida ate 10% da avaliacao o arrematante paga; acima de 10% a Caixa cobre. Conferir SEMPRE o anuncio e o edital.
    - Site do leiloeiro
 
 4) VENDA ONLINE (cronometro ativo):
    - Direto no site da Caixa (sem leiloeiro)
    - SEM comissao de 5%
    - Vence a MAIOR proposta quando o cronometro zerar
-   - IPTU/condominio atrasado: em regra o ARREMATANTE assume. A Caixa NAO paga. Conferir SEMPRE o anuncio e o edital do imovel.
+   - IPTU/condominio atrasado: regra dos 10% - divida ate 10% da avaliacao o arrematante paga; acima de 10% a Caixa cobre. Conferir SEMPRE o anuncio e o edital.
    - Imobiliaria credenciada gratis
 
 5) VENDA DIRETA ONLINE (cronometro zerado):
    - Direto no site da Caixa
    - SEM comissao
    - Vence a PRIMEIRA proposta igual ou maior que o minimo
-   - IPTU/condominio atrasado: em regra o ARREMATANTE assume. A Caixa NAO paga. Conferir SEMPRE o anuncio e o edital do imovel.
+   - IPTU/condominio atrasado: regra dos 10% - divida ate 10% da avaliacao o arrematante paga; acima de 10% a Caixa cobre. Conferir SEMPRE o anuncio e o edital.
    - Quem chegar primeiro com lance valido leva
 
 PROCESSO PRATICO:
@@ -305,7 +305,7 @@ PROCESSO PRATICO:
 
 DIFERENCAS-CHAVE QUE PUBLICO NAO SABE:
 - Venda Online/Direta NAO TEM comissao 5% (so leilao SFI e licitacao tem)
-- IPTU/condominio atrasado: a Caixa NAO paga; em regra o arrematante assume. Sempre conferir o anuncio e o edital do imovel.
+- IPTU/condominio atrasado: regra dos 10% (ate 10% da avaliacao arrematante paga; acima a Caixa cobre). A promocao de pagamento integral foi cancelada. Sempre conferir anuncio e edital.
   Em Licitacao Aberta, Venda Online e Compra/Venda Direta DEPENDE DO ANUNCIO do imovel.
   Em 1o e 2o Leilao SFI o arrematante herda. REGRA: sempre mandar consultar o ANUNCIO e o EDITAL.
 - Pode usar FGTS!
@@ -448,15 +448,16 @@ CONFERIR NO EDITAL:
 - Forma e prazo de pagamento
 
 ================ REGRA CRITICA SOBRE IPTU/CONDOMINIO ATRASADO (ATUAL) ================
-O QUE MUDOU: a Caixa voltou atras APENAS na parte em que ela pagaria INTEGRALMENTE as dividas
-acima de 10% da avaliacao - ESSA parte foi REMOVIDA. O RESTO CONTINUA IGUAL.
-REGRA ATUAL:
-- O ARREMATANTE e RESPONSAVEL pelas dividas de IPTU e condominio do imovel.
-- A Caixa NAO paga integralmente as dividas (essa hipotese acabou).
-- NUNCA afirmar que "a Caixa paga IPTU/condominio".
-- A responsabilidade e os detalhes estao no EDITAL e no ANUNCIO de venda de cada imovel.
+REGRA DOS 10% - CONTINUA VALIDA (esta no edital):
+- Divida (IPTU/condominio) ATE 10% do valor de AVALIACAO -> o ARREMATANTE paga.
+- O que PASSAR de 10% da avaliacao -> a CAIXA cobre.
+- O criterio e sobre o VALOR DE AVALIACAO do imovel.
+
+O QUE FOI CANCELADO (a Caixa voltou atras): a "promocao" em que, em ALGUNS imoveis, a Caixa
+pagaria a divida INTEGRALMENTE (100%, IPTU + condominio). ISSO NAO VALE MAIS. Nao usar.
+
 OBRIGATORIO: TODO post que tocar em IPTU/tributos/condominio/dividas DEVE mandar o usuario
-VERIFICAR SEMPRE o ANUNCIO do imovel e o EDITAL antes de arrematar.
+VERIFICAR SEMPRE o ANUNCIO do imovel e o EDITAL antes de arrematar (a regra do imovel esta la).
 ================================================================================
 
 === LEILAO EXTRAJUDICIAL / ALIENACAO FIDUCIARIA (Lei 9.514/97) - FONTE: DOCS DO USUARIO ===
