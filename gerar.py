@@ -278,21 +278,21 @@ PRIORIZE conteudo sobre Imoveis Caixa - publico ama. Site oficial: caixa.gov.br/
 3) LICITACAO ABERTA (Lei 13.303/2017):
    - Valor: avaliacao Caixa COM desconto
    - Comissao 5%
-   - IPTU/tributos: REGRA DOS 10% (sobre avaliacao) - debito < 10% comprador paga; > 10% Caixa paga integral. Condominio: comprador ate 10%, Caixa o excedente. Conferir anuncio/edital.
+   - IPTU/condominio atrasado: em regra o ARREMATANTE assume. A Caixa NAO paga. Conferir SEMPRE o anuncio e o edital do imovel.
    - Site do leiloeiro
 
 4) VENDA ONLINE (cronometro ativo):
    - Direto no site da Caixa (sem leiloeiro)
    - SEM comissao de 5%
    - Vence a MAIOR proposta quando o cronometro zerar
-   - IPTU/tributos: REGRA DOS 10% (sobre avaliacao) - debito < 10% comprador paga; > 10% Caixa paga integral. Condominio: comprador ate 10%, Caixa o excedente. Conferir anuncio.
+   - IPTU/condominio atrasado: em regra o ARREMATANTE assume. A Caixa NAO paga. Conferir SEMPRE o anuncio e o edital do imovel.
    - Imobiliaria credenciada gratis
 
 5) VENDA DIRETA ONLINE (cronometro zerado):
    - Direto no site da Caixa
    - SEM comissao
    - Vence a PRIMEIRA proposta igual ou maior que o minimo
-   - IPTU/tributos: REGRA DOS 10% (sobre avaliacao) - debito < 10% comprador paga; > 10% Caixa paga integral. Condominio: comprador ate 10%, Caixa o excedente. Conferir anuncio.
+   - IPTU/condominio atrasado: em regra o ARREMATANTE assume. A Caixa NAO paga. Conferir SEMPRE o anuncio e o edital do imovel.
    - Quem chegar primeiro com lance valido leva
 
 PROCESSO PRATICO:
@@ -305,7 +305,7 @@ PROCESSO PRATICO:
 
 DIFERENCAS-CHAVE QUE PUBLICO NAO SABE:
 - Venda Online/Direta NAO TEM comissao 5% (so leilao SFI e licitacao tem)
-- IPTU/condominio atrasado: REGRA DOS 10% sobre avaliacao (tributo >10% Caixa paga integral; condominio >10% Caixa paga excedente).
+- IPTU/condominio atrasado: a Caixa NAO paga; em regra o arrematante assume. Sempre conferir o anuncio e o edital do imovel.
   Em Licitacao Aberta, Venda Online e Compra/Venda Direta DEPENDE DO ANUNCIO do imovel.
   Em 1o e 2o Leilao SFI o arrematante herda. REGRA: sempre mandar consultar o ANUNCIO e o EDITAL.
 - Pode usar FGTS!
@@ -447,17 +447,14 @@ CONFERIR NO EDITAL:
 - Estado de ocupacao
 - Forma e prazo de pagamento
 
-================ REGRA CRITICA SOBRE IPTU/CONDOMINIO ATRASADO (ATUALIZADA - MUDANCA RECENTE jun/2026) ================
-REGRA DO 10% (Regras da Venda Online Caixa 19.603 - confirmada; mudanca recente, comunicar como novidade):
-OBRIGATORIO: TODO post que tocar em IPTU/tributos/condominio/dividas DEVE terminar mandando
-o usuario VERIFICAR SEMPRE o ANUNCIO do imovel e o EDITAL (a responsabilidade aparece no anuncio).
-- TRIBUTOS (IPTU): se o debito for INFERIOR a 10% do valor de AVALIACAO -> o COMPRADOR/arrematante paga.
-  Se o debito for SUPERIOR a 10% do valor de avaliacao -> a CAIXA paga INTEGRALMENTE.
-- CONDOMINIO: o comprador paga ate 10% do valor de avaliacao; a CAIXA paga o que EXCEDER 10% (parte excedente).
-- O criterio e SEMPRE sobre o VALOR DE AVALIACAO do imovel.
-- O ANUNCIO do imovel indica a responsabilidade de cada caso - mandar SEMPRE conferir o anuncio e o edital.
-NAO dizer mais "a Caixa nunca paga IPTU" (desatualizado). A regra correta e a do 10% acima.
-Cuidado pra nao confundir: tributo > 10% = Caixa paga TUDO; condominio > 10% = Caixa paga so o excedente.
+================ REGRA CRITICA SOBRE IPTU/CONDOMINIO ATRASADO (ATUAL) ================
+A CAIXA VOLTOU ATRAS: NAO vai pagar as dividas de IPTU nem de condominio.
+A regra que VALE e a do EDITAL e do ANUNCIO de venda de cada imovel (varia caso a caso).
+- NUNCA afirmar que "a Caixa paga IPTU/condominio". (A regra dos 10% foi revertida - NAO usar mais.)
+- A responsabilidade pelas dividas (IPTU, condominio, taxas) esta descrita no ANUNCIO e no EDITAL do imovel.
+- Em regra, o ARREMATANTE assume as dividas - mas SEMPRE depende do que o edital/anuncio daquele imovel diz.
+OBRIGATORIO: TODO post que tocar em IPTU/tributos/condominio/dividas DEVE mandar o usuario
+VERIFICAR SEMPRE o ANUNCIO do imovel e o EDITAL antes de arrematar. Nao existe regra unica.
 ================================================================================
 
 === LEILAO EXTRAJUDICIAL / ALIENACAO FIDUCIARIA (Lei 9.514/97) - FONTE: DOCS DO USUARIO ===
