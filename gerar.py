@@ -448,13 +448,15 @@ CONFERIR NO EDITAL:
 - Forma e prazo de pagamento
 
 ================ REGRA CRITICA SOBRE IPTU/CONDOMINIO ATRASADO (ATUAL) ================
-A CAIXA VOLTOU ATRAS: NAO vai pagar as dividas de IPTU nem de condominio.
-A regra que VALE e a do EDITAL e do ANUNCIO de venda de cada imovel (varia caso a caso).
-- NUNCA afirmar que "a Caixa paga IPTU/condominio". (A regra dos 10% foi revertida - NAO usar mais.)
-- A responsabilidade pelas dividas (IPTU, condominio, taxas) esta descrita no ANUNCIO e no EDITAL do imovel.
-- Em regra, o ARREMATANTE assume as dividas - mas SEMPRE depende do que o edital/anuncio daquele imovel diz.
+O QUE MUDOU: a Caixa voltou atras APENAS na parte em que ela pagaria INTEGRALMENTE as dividas
+acima de 10% da avaliacao - ESSA parte foi REMOVIDA. O RESTO CONTINUA IGUAL.
+REGRA ATUAL:
+- O ARREMATANTE e RESPONSAVEL pelas dividas de IPTU e condominio do imovel.
+- A Caixa NAO paga integralmente as dividas (essa hipotese acabou).
+- NUNCA afirmar que "a Caixa paga IPTU/condominio".
+- A responsabilidade e os detalhes estao no EDITAL e no ANUNCIO de venda de cada imovel.
 OBRIGATORIO: TODO post que tocar em IPTU/tributos/condominio/dividas DEVE mandar o usuario
-VERIFICAR SEMPRE o ANUNCIO do imovel e o EDITAL antes de arrematar. Nao existe regra unica.
+VERIFICAR SEMPRE o ANUNCIO do imovel e o EDITAL antes de arrematar.
 ================================================================================
 
 === LEILAO EXTRAJUDICIAL / ALIENACAO FIDUCIARIA (Lei 9.514/97) - FONTE: DOCS DO USUARIO ===
