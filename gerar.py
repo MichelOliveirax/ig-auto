@@ -448,16 +448,16 @@ CONFERIR NO EDITAL:
 - Forma e prazo de pagamento
 
 ================ REGRA CRITICA SOBRE IPTU/CONDOMINIO ATRASADO (ATUAL) ================
-REGRA DOS 10% - CONTINUA VALIDA (esta no edital):
-- Divida (IPTU/condominio) ATE 10% do valor de AVALIACAO -> o ARREMATANTE paga.
-- O que PASSAR de 10% da avaliacao -> a CAIXA cobre.
-- O criterio e sobre o VALOR DE AVALIACAO do imovel.
-
-O QUE FOI CANCELADO (a Caixa voltou atras): a "promocao" em que, em ALGUNS imoveis, a Caixa
-pagaria a divida INTEGRALMENTE (100%, IPTU + condominio). ISSO NAO VALE MAIS. Nao usar.
-
-OBRIGATORIO: TODO post que tocar em IPTU/tributos/condominio/dividas DEVE mandar o usuario
-VERIFICAR SEMPRE o ANUNCIO do imovel e o EDITAL antes de arrematar (a regra do imovel esta la).
+A REGRA VARIA DE IMOVEL PRA IMOVEL - esta escrita no ANUNCIO de cada um. NUNCA cravar regra unica.
+Exemplos reais que provam a diferenca:
+- CONDOMINIO (padrao comum nos anuncios): comprador paga ate 10% do valor de avaliacao;
+  a CAIXA paga apenas o que EXCEDER 10%.
+- TRIBUTOS (IPTU): VARIA! Em uns anuncios: comprador paga se o debito for < 10% e a CAIXA paga
+  integral se > 10%. Em OUTROS anuncios: e TOTALMENTE do comprador (sem excecao dos 10%).
+- Alguns imoveis ainda tem gravame/penhora e a REGULARIZACAO fica por conta do comprador.
+O QUE FOI CANCELADO: a "promocao" em que a Caixa pagaria 100% da divida em alguns imoveis - nao vale mais.
+CONCLUSAO PRO POST: como cada imovel tem regra propria, e OBRIGATORIO ler as "Regras para pagamento
+das despesas" no ANUNCIO e o EDITAL antes de arrematar. Esse e o argumento central - sempre verificar.
 ================================================================================
 
 === LEILAO EXTRAJUDICIAL / ALIENACAO FIDUCIARIA (Lei 9.514/97) - FONTE: DOCS DO USUARIO ===
