@@ -106,6 +106,8 @@ TERMOS_JUDICIAL = [
     "penhora judicial", "leilao do juiz", "leilão do juiz", "edital do juiz",
     "juiz", "juíz", "juiza", "juíza", "magistrado",
     "tribunal", "processo judicial", "acao judicial", "ação judicial",
+    "penhora", "penhoras", "trabalhista", "trabalhistas",
+    "reclamacao trabalhista", "reclamação trabalhista",
 ]
 
 
@@ -239,7 +241,7 @@ NUNCA generalizar "multa de desistencia em leilao Caixa" como se fosse uma regra
 Cada modalidade e cada edital tem sua regra - sempre orientar a LER O EDITAL atualizado do imovel.
 ====================================================================================
 - Hipoteca: extinta automaticamente apos arrematacao (Lei 9.514)
-- Penhora trabalhista: NAO se extingue, herdada pelo arrematante (CUIDADO)
+- (REFERENCIA INTERNA - NUNCA virar post, e assunto judicial proibido) Penhora trabalhista nao se extingue.
 - IPVA/multas: irrelevante (so imovel, nao veiculo)
 
 NUMEROS REALISTAS (use como base):
@@ -571,7 +573,7 @@ FORMATO OBRIGATORIO: retorne SOMENTE um JSON PLANO (sem envelopar em "slides" ou
 
 OBJETIVO: ensinar UM conceito tecnico de leilao em 5 slides. Salvavel = viralizavel.
 
-ESCOLHA UM TEMA e escreva de um jeito DIFERENTE dos posts ja publicados (veja a lista de titulos abaixo). Pode repetir tema, mas com outro angulo/gancho/exemplo. Varie entre: prazo de desfazimento, calculo de lance maximo, imovel ocupado vs livre, edital - o que olhar, ITBI no leilao, fim de hipoteca, modalidades Caixa (SFI vs Licitacao vs Venda Online vs Compra Direta), divida do anterior, condominio em atraso, vistoria possivel?, comissao do leiloeiro, cuidados com averbacao, prazo pra pagar, multa de desistencia (5% no Caixa - conferir modalidade), recurso de arrematante, posse vs propriedade, custo total real (lance + custos), penhora trabalhista herdada, matricula bloqueada, FGTS no leilao, imobiliaria credenciada gratis, PJ comprando, comprar em outro estado, cronometro da Venda Online, 8 proponentes por proposta, purgacao da mora, eviccao, o que anula o leilao. SEMPRE no contexto EXTRAJUDICIAL CAIXA - nunca leilao judicial.
+ESCOLHA UM TEMA e escreva de um jeito DIFERENTE dos posts ja publicados (veja a lista de titulos abaixo). Pode repetir tema, mas com outro angulo/gancho/exemplo. Varie entre: prazo de desfazimento, calculo de lance maximo, imovel ocupado vs livre, edital - o que olhar, ITBI no leilao, fim de hipoteca, modalidades Caixa (SFI vs Licitacao vs Venda Online vs Compra Direta), divida do anterior, condominio em atraso, vistoria possivel?, comissao do leiloeiro, cuidados com averbacao, prazo pra pagar, multa de desistencia (5% no Caixa - conferir modalidade), recurso de arrematante, posse vs propriedade, custo total real (lance + custos), matricula bloqueada, FGTS no leilao, imobiliaria credenciada gratis, PJ comprando, comprar em outro estado, cronometro da Venda Online, 8 proponentes por proposta, purgacao da mora, eviccao, o que anula o leilao. SEMPRE no contexto EXTRAJUDICIAL CAIXA - nunca leilao judicial.
 
 ESTRUTURA (carrossel 5 slides):
 - titulo (titulo do tema, 5-8 palavras)
