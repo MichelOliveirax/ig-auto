@@ -1,0 +1,46 @@
+name: Post Promocao (one-off)
+
+on:
+  workflow_dispatch:
+    inputs:
+      test:
+        description: 'TEST mode (nao publica)'
+        required: false
+        default: 'true'
+
+permissions:
+  contents: write
+
+jobs:
+  promocao:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar Playwright
+        run: |
+          pip install playwright
+          playwright install chromium --with-deps
+      - name: Renderizar carrossel da promocao
+        env:
+          TEST: ${{ github.event.inputs.test == 'true' && '1' || '0' }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python postar_promocao.py
+      - name: Commitar imagens
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add img/
+          git diff --staged --quiet || git commit -m "Add slides promocao $(date -u +%Y%m%d_%H%M%S)"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main || true
+            if git push; then break; fi
+            sleep 3
+          done
+      - name: Publicar no Instagram
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          FB_TOKEN: ${{ secrets.FB_TOKEN }}
+        run: python publicar_ig.py
