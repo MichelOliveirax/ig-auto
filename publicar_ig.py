@@ -4,6 +4,7 @@ Roda DEPOIS do commit das imagens (pra raw.githubusercontent funcionar).
 import json
 import os
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -21,8 +22,17 @@ def ig_post(url, params):
     body = urllib.parse.urlencode({**params, "access_token": TOKEN}, encoding="utf-8").encode("utf-8")
     req = urllib.request.Request(url, data=body, method="POST",
         headers={"Content-Type": "application/x-www-form-urlencoded; charset=utf-8"})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return json.loads(r.read().decode("utf-8"))
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return json.loads(r.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        corpo = ""
+        try:
+            corpo = e.read().decode("utf-8")
+        except Exception:
+            pass
+        print(f"ERRO Graph API ({e.code}): {corpo}")
+        raise
 
 # Espera as imagens estarem disponiveis no raw.githubusercontent (CDN cache)
 print("Aguardando CDN do GitHub propagar imagens...")
