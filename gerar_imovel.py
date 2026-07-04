@@ -10,7 +10,8 @@ import re
 import ssl
 import urllib.request
 
-BASE = "https://www.imoveiscaixaleilao.com.br/imoveis?type=Casa%2CApartamento&modality=Compra+Direta%2CVenda+Online&allowFinancing=true&orderBy=price_asc"
+# So CASA (regra: casa murada com portao), Compra Direta + Venda Online, com financiamento.
+BASE = "https://www.imoveiscaixaleilao.com.br/imoveis?type=Casa&modality=Compra+Direta%2CVenda+Online&allowFinancing=true&orderBy=price_asc"
 POSTADOS_FILE = "imoveis_postados.json"
 
 ctx = ssl.create_default_context()
@@ -69,19 +70,46 @@ def buscar(paginas=3):
     return imoveis
 
 
+# REGRAS DO IMOVEL DA SEMANA (definidas pelo usuario):
+# - Preferir estado de SAO PAULO (SP)
+# - Desconto MINIMO de 40%
+# - So Compra Direta e Venda Online, com financiamento (ja no filtro da BASE), nunca RJ
+# - Casa em BOM estado, murada e com portao (isso NAO da pra automatizar pela foto -
+#   e criterio VISUAL; o robo pega o melhor SP >=40%, mas o ideal e revisar/trocar a foto na curadoria).
+DESCONTO_MIN = 40
+UF_PREFERIDA = "SP"
+FORCE_FOTO = os.environ.get("FORCE_FOTO", "").strip()
+
+
 def escolher(imoveis):
-    """Pega o maior desconto ainda nao postado (evita repetir imovel)."""
+    """Escolhe o imovel: prioriza SP, desconto >= 40%, sem repetir. FORCE_FOTO forca um especifico."""
     postados = []
     if os.path.exists(POSTADOS_FILE):
         try:
             postados = json.load(open(POSTADOS_FILE, encoding="utf-8"))
         except Exception:
             postados = []
-    candidatos = [i for i in imoveis if i["foto_id"] not in postados]
-    if not candidatos:
-        candidatos = imoveis
-    candidatos.sort(key=lambda i: i["desconto"], reverse=True)
-    escolhido = candidatos[0]
+
+    # override manual: posta exatamente o imovel escolhido a mao (curadoria visual)
+    if FORCE_FOTO:
+        for i in imoveis:
+            if i["foto_id"] == FORCE_FOTO or FORCE_FOTO in i["foto"]:
+                postados.append(i["foto_id"])
+                json.dump(postados[-60:], open(POSTADOS_FILE, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+                return i
+        print(f"  [imovel] FORCE_FOTO '{FORCE_FOTO}' nao encontrado - seguindo escolha automatica")
+
+    # aplica desconto minimo
+    elegiveis = [i for i in imoveis if i["desconto"] >= DESCONTO_MIN]
+    if not elegiveis:
+        elegiveis = list(imoveis)
+    # tira ja postados
+    novos = [i for i in elegiveis if i["foto_id"] not in postados] or elegiveis
+    # prioriza SP
+    sp = [i for i in novos if i.get("uf") == UF_PREFERIDA]
+    pool = sp if sp else novos
+    pool.sort(key=lambda i: i["desconto"], reverse=True)
+    escolhido = pool[0]
     postados.append(escolhido["foto_id"])
     json.dump(postados[-60:], open(POSTADOS_FILE, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     return escolhido
@@ -133,7 +161,7 @@ def montar(im):
 
 
 if __name__ == "__main__":
-    imoveis = buscar()
+    imoveis = buscar(paginas=20)  # varre mais paginas p/ achar casas de SP >=40%
     print(f"  [imovel] {len(imoveis)} imoveis com financiamento encontrados")
     if not imoveis:
         raise SystemExit("ABORTADO: nenhum imovel encontrado no site (nada sera publicado).")

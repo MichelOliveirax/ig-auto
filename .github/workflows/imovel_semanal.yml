@@ -9,6 +9,10 @@ on:
         description: 'TEST mode (nao publica)'
         required: false
         default: 'false'
+      foto:
+        description: 'Forcar um imovel especifico (foto_id ou parte da URL da foto)'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -31,6 +35,8 @@ jobs:
           restore-keys: imoveis-
 
       - name: Buscar imovel e gerar conteudo
+        env:
+          FORCE_FOTO: ${{ github.event.inputs.foto }}
         run: python gerar_imovel.py
 
       - name: Instalar Playwright
